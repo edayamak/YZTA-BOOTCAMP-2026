@@ -1,24 +1,26 @@
 # YZTA-BOOTCAMP-2026
 # **Takım İsmi**
 
-[Takım İsminiz veya Takım Numaranız]
+[TAKIM 38]
 
 # Ürün İle İlgili Bilgiler
 
 ## Takım Elemanları
 
-* [Ad Soyad]: Product Owner
-* [Ad Soyad]: Scrum Master
-* [Ad Soyad]: Team Member/Developer
-* [Ad Soyad]: Team Member/Developer
+* [Serenay Nebahat Duran]: Product Owner
+* [Burak Arabacıoğlu]: Scrum Master
+* [Eda Yamak]: Team Member/Developer
+* [Hilal Hanım Keskin]: Team Member/Developer
+* [Ömer Faruk Keskin]: Team Member/Developer
 
 ## Ürün İsmi
 
---[Ürün İsmi]--
+--[GreenScan AI]--
 
 ## Ürün Açıklaması
 
-* [Bu kısma projenizin ne olduğunu, hangi problemi çözdüğünü ve neyi amaçladığını açıklayan kısa bir paragraf yazmalısınız.]
+* [GreenScan AI, gıda ve katı atıkların çevreye olan olumsuz etkilerini azaltmak ve bireysel kaynak yönetimini optimize etmek amacıyla geliştirilen, uçtan uca çalışan yapay zeka tabanlı bir sürdürülebilirlik uygulamasıdır. Kullanıcıların mobil arayüz üzerinden sisteme yüklediği atık fotoğraflarını, arka planda çalışan derin öğrenme ve bilgisayarlı görü (YOLO/PyTorch) modelleriyle anlık olarak analiz edip sınıflandırır.
+Uygulama, tespit edilen atığın türüne göre doğada yok olma süresini ve doğru ayrıştırma yöntemlerini kullanıcıya sunarken; konum tabanlı veri entegrasyonu sayesinde en yakın geri dönüşüm noktalarını harita üzerinde dinamik olarak listeler. Python, FastAPI ve ilişkisel veritabanı mimarisiyle kurgulanan bu çalışan ürün; karbon ayak izini azaltmayı kolaylaştıran, pazar potansiyeli yüksek, oyunlaştırılmış ve kullanıcı bağlılığını ön planda tutan akıllı bir dijital çevre asistanıdır.]
 
 ## Ürün Özellikleri
 
