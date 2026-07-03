@@ -15,27 +15,27 @@
 
 ## Ürün İsmi
 
---[GreenScan AI]--
+--AgenticQA--
 
 ## Ürün Açıklaması
 
-* [GreenScan AI, gıda ve katı atıkların çevreye olan olumsuz etkilerini azaltmak ve bireysel kaynak yönetimini optimize etmek amacıyla geliştirilen, uçtan uca çalışan yapay zeka tabanlı bir sürdürülebilirlik uygulamasıdır. Kullanıcıların mobil arayüz üzerinden sisteme yüklediği atık fotoğraflarını, arka planda çalışan derin öğrenme ve bilgisayarlı görü (YOLO/PyTorch) modelleriyle anlık olarak analiz edip sınıflandırır.
-Uygulama, tespit edilen atığın türüne göre doğada yok olma süresini ve doğru ayrıştırma yöntemlerini kullanıcıya sunarken; konum tabanlı veri entegrasyonu sayesinde en yakın geri dönüşüm noktalarını harita üzerinde dinamik olarak listeler. Python, FastAPI ve ilişkisel veritabanı mimarisiyle kurgulanan bu çalışan ürün; karbon ayak izini azaltmayı kolaylaştıran, pazar potansiyeli yüksek, oyunlaştırılmış ve kullanıcı bağlılığını ön planda tutan akıllı bir dijital çevre asistanıdır.]
+* AgenticQA, yazılım şirketlerinin (e-ticaret platformları, SaaS girişimleri, dijital bankacılık vb.) canlıya aldıkları sistemlerdeki kullanıcı deneyimi hatalarını ve sistem açıklarını tespit eden yapay zeka tabanlı bir B2B kaos simülasyonu ve canlı davranış testi platformudur.
+
+Geleneksel manuel test süreçlerinin yavaşlığını ve statik otomasyon kodlarının (Selenium/Cypress) öngörülemez insan davranışlarını yakalayamama kısıtını tamamen ortadan kaldırır. Hedef web sitelerine entegre edilen hafif bir izleme eklentisi/script'i (JS snippet) aracılığıyla çalışan platform, arka planda farklı insan personalarını taklit eden bağımsız bir AI Agent Ordusu kurarak siteleri otonom bir şekilde test eder. Yazılım ekipleri her sabah panellerini açtığında, yapay zekanın sistemlerini nasıl çökertmeye çalıştığını, nerede hata bulduğunu ve matematiksel olarak hesaplanmış kullanıcı deneyimi açıklarını izlerler.
 
 ## Ürün Özellikleri
 
-* [Temel Özellik 1]
-* [Temel Özellik 2]
-* [Temel Özellik 3]
-* [Temel Özellik 4]
+* Çoklu AI Agent Orkestrasyonu (Multi-Agent): Farklı kullanıcı personalarını (Aceleci Alışverişçi, Teknoloji Özürlü Yaşlı, Kötü Niyetli Saldırgan) taklit eden, hafızaya (memory) sahip bağımsız ajanların web sitelerinde özgürce gezinmesi.
+* Makine Öğrenmesi ile Darboğaz Tahmini: Ajanların sitede gezinirken ürettiği logları ve tıklama rotalarını (clickstream) işleyerek kullanıcı terk riskini (Churn) ve sistemsel çökmeleri (Anomaly Detection) matematiksel olarak tahmin etme.
+* Canlı Takip ve UX Skorlama (Real-time Dashboard): Kritik hata anlarının logları, yapay zekanın ürettiği dinamik Kullanıcı Deneyim Puanı (UX Score) ve anlık kaos analizlerinin görselleştirilmesi.
+* Sıfır Kod Entegrasyonu: Şirketlerin kendi kod tabanlarına ekstra test kodu yazmak zorunda kalmadan, sadece tek satırlık bir script entegrasyonuyla sistem analizi başlatabilmesi.
 
 ## Hedef Kitle
 
-* [Örn: Üniversite Öğrencileri]
-* [Örn: Yazılımcılar / Tasarımcılar]
-* [Örn: X Sektöründeki İşletmeler]
-* [Örn: 18 - 45 yaş arası kullanıcılar]
-
+* E-Ticaret Şirketleri (Trendyol, Hepsiburada vb.)
+* SaaS (Yazılım Servisi) Girişimleri ve Dijital Bankalar
+* Yazılım Geliştirme Ajansları ve QA (Kalite Güvence) Ekipleri
+* Ürün Yöneticileri (Product Managers) ve UX/UI Tasarımcıları
 ## Product Backlog URL
 
 [Miro / Jira / Trello Backlog Board Linki](https://miro.com/...)
