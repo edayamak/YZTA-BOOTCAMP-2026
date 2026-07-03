@@ -7,11 +7,11 @@
 
 ## Takım Elemanları
 
-* [Serenay Nebahat Duran]: Product Owner
-* [Burak Arabacıoğlu]: Scrum Master
-* [Eda Yamak]: Team Member/Developer
-* [Hilal Hanım Keskin]: Team Member/Developer
-* [Ömer Faruk Keskin]: Team Member/Developer
+* Serenay Nebahat Duran: Product Owner
+* Burak Arabacıoğlu: Scrum Master
+* Eda Yamak: Team Member/Developer
+* Hilal Hanım Keskin: Team Member/Developer
+* Ömer Faruk Keskin: Team Member/Developer
 
 ## Ürün İsmi
 
