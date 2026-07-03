@@ -38,7 +38,7 @@ Geleneksel manuel test süreçlerinin yavaşlığını ve statik otomasyon kodla
 * Ürün Yöneticileri (Product Managers) ve UX/UI Tasarımcıları
 ## Product Backlog URL
 
-[Miro / Jira / Trello Backlog Board Linki](https://miro.com/...)
+[Miro / Jira / Trello Backlog Board Linki](https://miro.com/app/board/uXjVOSSCpsI=/)
 
 ---
 
