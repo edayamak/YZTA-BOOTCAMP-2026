@@ -58,22 +58,24 @@ Entegrasyon & Debugging: Uvicorn sunucu kilitlenmeleri, yerel klasör yolları v
 Karşılaşılan Engeller (Impediments): Google Colab ile Drive arasındaki dosya yazma/okuma senkronizasyon problemleri ve Uvicorn'un arka planda modelleri yüklerken test isteklerinde fırlattığı Connection refused hataları takımı kısa süreli bloke etmiştir. Bu engeller, timeout sürelerinin esnetilmesi ve model yollarının kod içinde dinamik hale getirilmesiyle aşılmıştır.
 
 * **Sprint board update**: Sprint board screenshotları:
+* <img width="3315" height="1907" alt="sprint_1_board" src="https://github.com/user-attachments/assets/6468543c-32fd-4523-b8a8-8ab1bc67a628" />
 * Sprint 1 sonunda, çalışan ve canlı testleri başarıyla geçerek {'status': 'ok'} yanıtı veren kararlı bir tahmin API'si (Product Increment) elde edilmiştir.
 API Endpoint'leri: /predict/anomaly ve /predict/churn endpoint'leri üzerinden gerçek zamanlı veri kabul etmeye hazırdır.
 * Sprint Başlangıcı: Tüm story'ler To Do sütununda Bucket puanlarıyla etiketlendi.
 Sprint Ortası: Özellik çıkarımı ve model eğitimleri tamamlanarak In Progress (Yapılıyor) sütunundan Review/QA aşamasına aktarıldı.
 Sprint Sonu: FastAPI backend entegrasyonunun ve yerel testlerin başarıyla tamamlanmasıyla ML bacağındaki tüm görevler Done (Tamamlandı) sütununa çekildi.
 
-* **Ürün Durumu**: Ekran görüntüleri:<img width="550" height="126" alt="Ekran Resmi 2026-07-04 10 42 54" src="https://github.com/user-attachments/assets/021dfebf-4113-4c0b-bdbf-3aa3cd152389" />
+* **Ürün Durumu**: Ekran görüntüleri:
+* <img width="550" height="126" alt="Ekran Resmi 2026-07-04 10 42 54" src="https://github.com/user-attachments/assets/021dfebf-4113-4c0b-bdbf-3aa3cd152389" />
 
   
 * **Sprint Review**: Sprint 1 hedeflerine %100 oranında ulaşılmıştır. Paydaşlara ve takım üyelerine çalışan API mimarisi sunulmuş, CatBoost modellerinin validasyon başarıları gösterilmiştir. Yapılan interaktif testlerde API'nin tıkır tıkır çalıştığı ve model dosyalarını başarıyla yüklediği doğrulanmıştır. Bir sonraki sprintte bu API'nin frontend/dashboard arayüzüne bağlanması onaylanmıştır.
-* **Sprint Retrospective:
-* **Ne İyi Gitti? :
+* **Sprint Retrospective:**
+* **Ne İyi Gitti? :**
 Büyük veri kümelerini chunk'lar halinde işleme stratejimiz çok başarılı oldu; RAM patlaması yaşamadan veri setini kararlı hale getirdik.
 CatBoost modellerimizin validasyon başarıları (Anomali için %97.42, Churn için %86.35 AUC) hedeflediğimiz metriklerin çok üzerinde geldi.  
 FastAPI entegrasyonu sayesinde backend mimarisini çok hızlı bir şekilde ayağa kaldırdık ve sorunsuz çalışan {'status': 'ok'} çıktısını aldık.
-* **Ne Geliştirilebilir? :
+* **Ne Geliştirilebilir? :**
 Google Colab'in sanal Linux dosya sistemi ve dinamik klasör yolları sunucuyu başlatırken yerel senkronizasyon gecikmelerine ve zaman kayıplarına yol açtı.  
 Gelecek sprintlerde, API ayağa kaldırma ve test süreçlerini doğrudan yerel terminal ortamında (VS Code veya PyCharm üzerinden) yürüterek bulut tabanlı dosya yolu karmaşasının önüne geçebiliriz.
 
