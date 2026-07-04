@@ -66,7 +66,8 @@ Sprint Ortası: Özellik çıkarımı ve model eğitimleri tamamlanarak In Progr
 Sprint Sonu: FastAPI backend entegrasyonunun ve yerel testlerin başarıyla tamamlanmasıyla ML bacağındaki tüm görevler Done (Tamamlandı) sütununa çekildi.
 
 * **Ürün Durumu**: Ekran görüntüleri:
-* <img width="550" height="126" alt="Ekran Resmi 2026-07-04 10 42 54" src="https://github.com/user-attachments/assets/021dfebf-4113-4c0b-bdbf-3aa3cd152389" />
+<img width="550" height="126" alt="Ekran Resmi 2026-07-04 10 42 54" src="https://github.com/user-attachments/assets/df64e708-9c6f-402b-acde-c3e13f1656c1" />
+
 
   
 * **Sprint Review**: Sprint 1 hedeflerine %100 oranında ulaşılmıştır. Paydaşlara ve takım üyelerine çalışan API mimarisi sunulmuş, CatBoost modellerinin validasyon başarıları gösterilmiştir. Yapılan interaktif testlerde API'nin tıkır tıkır çalıştığı ve model dosyalarını başarıyla yüklediği doğrulanmıştır. Bir sonraki sprintte bu API'nin frontend/dashboard arayüzüne bağlanması onaylanmıştır.
