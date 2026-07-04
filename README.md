@@ -45,12 +45,12 @@ Geleneksel manuel test süreçlerinin yavaşlığını ve statik otomasyon kodla
 # Sprint 1
 
 * **Backlog düzeni ve Story seçimleri**:
-* Sprint 1 kapsamında, AgenticQA platformunun temel altyapısının kurulması hedeflenmiştir. Takım olarak Bucket System metodolojisini kullandık ve iş listemizi efor, belirsizlik ve teknik zorluk derecelerine göre gruplandırdık.
-Seçilen Görevler ve Puanları:
-ML Altyapısı: CatBoost ile Anomali ve Churn modellerinin eğitimi, hiperparametre optimizasyonu (class_weights ve best_iteration takipleri) -> Bucket: 13
-Backend: FastAPI mimarisinin kurulması, endpoint şemalarının (Pydantic) oluşturulması -> Bucket: 2
-Feature Extraction: Regex tabanlı URL ve HTTP POST body özellik çıkarım fonksiyonlarının yazılması -> Bucket: 5
-Entegrasyon & Debugging: Uvicorn sunucu kilitlenmeleri, yerel klasör yolları ve __file__ senkronizasyon hatalarının çözülmesi -> Bucket: 8
+* **Backlog düzeni ve Story seçimleri:**
+  Sprint 1 kapsamında, AgenticQA platformunun temel altyapısının kurulması hedeflenmiştir. Takım olarak Bucket System metodolojisini kullandık ve iş listemizi efor, belirsizlik ve teknik zorluk derecelerine göre gruplandırdık:
+  * **ML Altyapısı:** CatBoost ile Anomali ve Churn modellerinin eğitimi, hiperparametre optimizasyonu (class_weights ve best_iteration takipleri) -> **Bucket: 13**
+  * **Backend:** FastAPI mimarisinin kurulması, endpoint şemalarının (Pydantic) oluşturulması -> **Bucket: 2**
+  * **Feature Extraction:** Regex tabanlı URL ve HTTP POST body özellik çıkarım fonksiyonlarının yazılması -> **Bucket: 5**
+  * **Entegrasyon & Debugging:** Uvicorn sunucu kilitlenmeleri, yerel klasör yolları ve file senkronizasyon hatalarının çözülmesi -> **Bucket: 8**
 
 * **Daily Scrum**:
 * Sprint boyunca haftada 3 gün, 15'er dakikalık Daily Scrum toplantıları yapılmıştır.
