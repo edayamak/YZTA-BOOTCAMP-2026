@@ -140,13 +140,13 @@ Sprint sonunda planlanan Story'lerin tamamı başarıyla tamamlanmış ve Sprint
 * Sprint sonunda AgenticQA platformunun ilk çalışan **Product Increment**'i başarıyla oluşturulmuştur. Geliştirilen FastAPI tabanlı servisler ile Chrome Extension arasındaki veri akışı tamamlanmış, makine öğrenmesi modelleri REST API üzerinden erişilebilir hale getirilmiştir.
 * Sprint board screenshotları:
 <p align="center">
-  <img src="images/sprint1.1.png" alt="Sprint 1 Başlangıcı" width="900">
+  <img src="images/Sprint1.1.png" alt="Sprint 1 Başlangıcı" width="900">
 </p>
 <p align="center">
-  <img src="images/sprint1.2.png" alt="Sprint 1 Ortası" width="900">
+  <img src="images/Sprint1.2.png" alt="Sprint 1 Ortası" width="900">
 </p>
 <p align="center">
-  <img src="images/sprint1.3.png" alt="Sprint 1 Sonu" width="900">
+  <img src="images/Sprint1.3.png" alt="Sprint 1 Sonu" width="900">
 </p>
 
 * **Sprint Başlangıcı**
