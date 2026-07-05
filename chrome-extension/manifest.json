@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Konsey AI - Veri Toplayıcı",
+  "version": "1.5.4",
+  "description": "E-ticaret sayfasından canlı DOM, CSS ve sepet bilgisi toplar.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Konsey AI"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "lib/piiSanitizer.js",
+        "lib/shared.js",
+        "lib/shadowDom.js",
+        "lib/pageContext.js",
+        "lib/ecommerceSignals.js",
+        "lib/uxMetrics.js",
+        "lib/contrastAnalyzer.js",
+        "lib/featureBuilder.js",
+        "lib/visibleDataCapture.js",
+        "lib/cartExtractor.js",
+        "lib/cssCapture.js",
+        "lib/domCapture.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

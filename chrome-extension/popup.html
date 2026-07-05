@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konsey AI</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <header class="top">
+        <div>
+          <h1>Konsey AI</h1>
+          <p class="muted">Sayfa analizi</p>
+        </div>
+      </header>
+
+      <p class="status" id="status">Bir e-ticaret sayfasında analiz başlatabilirsin.</p>
+
+      <div class="progress-wrap hidden" id="progressWrap">
+        <div class="progress-head">
+          <span class="progress-dot" id="progressDot"></span>
+          <span id="progressLabel">Analiz çalışıyor…</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <button id="analyzeBtn" class="primary" type="button">Analiz Başlat</button>
+
+      <dl class="summary hidden" id="summary">
+        <div>
+          <dt>Platform</dt>
+          <dd id="metricPlatform">-</dd>
+        </div>
+        <div>
+          <dt>Sepet</dt>
+          <dd id="metricCart">-</dd>
+        </div>
+        <div>
+          <dt>Kontrast</dt>
+          <dd id="metricContrast">-</dd>
+        </div>
+        <div>
+          <dt>Vitrin</dt>
+          <dd id="metricProducts">-</dd>
+        </div>
+      </dl>
+
+      <section class="block hidden" id="downloadSection">
+        <h2>İndir</h2>
+        <div class="actions">
+          <button id="downloadHtmlBtn" class="secondary" type="button" disabled>
+            DOM (.html) <span id="htmlSize" class="size"></span>
+          </button>
+          <button id="downloadCssBtn" class="secondary" type="button" disabled>
+            CSS (.css) <span id="cssSize" class="size"></span>
+          </button>
+          <button id="downloadJsonBtn" class="secondary" type="button" disabled>
+            Analiz (.json)
+          </button>
+        </div>
+      </section>
+
+      <details class="block" id="previewDetails">
+        <summary>JSON önizleme</summary>
+        <pre id="previewText">Henüz veri yok.</pre>
+      </details>
+
+      <p class="note">Popup kapatsan da analiz devam eder. Kişisel veri toplanmaz.</p>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
