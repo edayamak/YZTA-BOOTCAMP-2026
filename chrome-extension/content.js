@@ -1,4 +1,9 @@
 (function () {
+  if (window.__AgenticQAContentLoaded) return;
+  window.__AgenticQAContentLoaded = true;
+
+  const SCRIPT_VERSION = "1.8.3";
+
   function buildPayload(mode) {
     const cart = window.KonseyCartExtractor.capture();
     const pageContext = window.KonseyPageContext.capture();
@@ -49,9 +54,34 @@
     return payload;
   }
 
+  function attachAgentSimulation(payload, options) {
+    const simulation = window.KonseyPersonaSimulator.run(payload, options);
+    payload.agent_simulation = simulation;
+    payload.analysis_lanes = window.KonseyFeatureBuilder.enrichLanesWithPersonas(
+      payload.analysis_lanes,
+      simulation
+    );
+    return payload;
+  }
+
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message?.type === "KONSEY_PING") {
-      sendResponse({ ok: true });
+      sendResponse({ ok: true, version: SCRIPT_VERSION });
+      return false;
+    }
+
+    if (message?.type === "KONSEY_RUN_AGENT_SIM") {
+      try {
+        const payload = message.payload;
+        if (!payload) throw new Error("Payload missing");
+        attachAgentSimulation(payload, { highlight: message.highlight !== false });
+        sendResponse({ ok: true, payload });
+      } catch (error) {
+        sendResponse({
+          ok: false,
+          error: error instanceof Error ? error.message : "Agent simulation failed"
+        });
+      }
       return false;
     }
 

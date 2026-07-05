@@ -262,12 +262,43 @@
     };
   }
 
+  function enrichLanesWithPersonas(analysisLanes, simulation) {
+    if (!analysisLanes?.lanes || !simulation?.personas) return analysisLanes;
+
+    const lanePersonaMap = {
+      trust: [],
+      ux_churn: [],
+      conversion: []
+    };
+
+    simulation.personas.forEach((persona) => {
+      const laneKey = persona.lane;
+      if (!lanePersonaMap[laneKey]) return;
+      lanePersonaMap[laneKey].push({
+        id: persona.id,
+        label: persona.label,
+        would_abandon: persona.would_abandon,
+        friction_score: persona.friction_score,
+        finding_count: persona.findings.length
+      });
+    });
+
+    Object.keys(lanePersonaMap).forEach((key) => {
+      const lane = analysisLanes.lanes[key];
+      if (!lane) return;
+      lane.persona_signals = lanePersonaMap[key];
+    });
+
+    return analysisLanes;
+  }
+
   window.KonseyFeatureBuilder = {
     buildTrustFeatures,
     buildUxChurnFeatures,
     buildConversionFeatures,
     buildMlFeatures,
     buildAnalysisLanes,
+    enrichLanesWithPersonas,
     build(payload) {
       return {
         ml_features: buildMlFeatures(payload),

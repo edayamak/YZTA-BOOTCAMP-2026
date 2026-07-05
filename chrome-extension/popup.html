@@ -11,75 +11,57 @@
       <header class="top">
         <div>
           <h1>AgenticQA</h1>
-          <p class="muted">Sayfa analizi</p>
+          <p class="muted">Siteyi tarar · detay admin konsolunda</p>
         </div>
       </header>
 
-      <p class="status" id="status">Bir e-ticaret sayfasında analiz başlatabilirsin.</p>
+      <p class="status" id="status">Mağaza sayfasında taramayı başlatabilirsin.</p>
 
       <div class="progress-wrap hidden" id="progressWrap">
         <div class="progress-head">
           <span class="progress-dot" id="progressDot"></span>
-          <span id="progressLabel">Analiz çalışıyor…</span>
+          <span id="progressLabel">Tarama çalışıyor…</span>
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
         </div>
       </div>
 
-      <button id="analyzeBtn" class="primary" type="button">Analiz Başlat</button>
+      <button id="analyzeBtn" class="primary" type="button">Siteyi Tara</button>
 
-      <dl class="summary hidden" id="summary">
-        <div class="site-platform">
-          <pre id="sitePlatformBlock">Site      -
+      <section class="result hidden" id="resultSection">
+        <dl class="summary" id="summary">
+          <div class="site-platform">
+            <pre id="sitePlatformBlock">Site      -
 Platform  -</pre>
-        </div>
-        <div>
-          <dt>Sepet</dt>
-          <dd id="metricCart">-</dd>
-        </div>
-        <div>
-          <dt>Kontrast</dt>
-          <dd id="metricContrast">-</dd>
-        </div>
-        <div>
-          <dt>Vitrin</dt>
-          <dd id="metricProducts">-</dd>
-        </div>
-      </dl>
+          </div>
+          <div>
+            <dt>Sayfa</dt>
+            <dd id="metricPageType">-</dd>
+          </div>
+          <div>
+            <dt>Ön risk</dt>
+            <dd id="metricRisk">-</dd>
+          </div>
+          <div class="data-pack-block">
+            <dt>Paket</dt>
+            <dd><pre id="dataPackBlock">-</pre></dd>
+          </div>
+          <div class="capture-id">
+            <dt>Tarama ID</dt>
+            <dd id="metricCaptureId">-</dd>
+          </div>
+        </dl>
 
-      <section class="lanes hidden" id="lanesSection">
-        <div class="lanes-head">
-          <h2>Analiz Hatları</h2>
-          <span class="lanes-overall" id="lanesOverall">-</span>
-        </div>
-        <p class="lanes-note">Risk skoru: 0 iyi · 100 kötü (yüksek % = daha fazla sorun)</p>
-        <ul class="lane-list" id="laneList"></ul>
+        <p class="result-hint">Detay admin konsolunda.</p>
+
+        <button id="adminBtn" class="primary" type="button">Admin konsolunda incele</button>
       </section>
 
-      <section class="block hidden" id="downloadSection">
-        <h2>İndir</h2>
-        <div class="actions">
-          <button id="downloadHtmlBtn" class="secondary" type="button" disabled>
-            DOM (.html) <span id="htmlSize" class="size"></span>
-          </button>
-          <button id="downloadCssBtn" class="secondary" type="button" disabled>
-            CSS (.css) <span id="cssSize" class="size"></span>
-          </button>
-          <button id="downloadJsonBtn" class="secondary" type="button" disabled>
-            Analiz (.json)
-          </button>
-        </div>
-      </section>
-
-      <details class="block" id="previewDetails">
-        <summary>JSON önizleme</summary>
-        <pre id="previewText">Henüz veri yok.</pre>
-      </details>
-
-      <p class="note">Popup kapatsan da analiz devam eder. Kişisel veri toplanmaz.</p>
+      <p class="note">Kişisel veri toplanmaz. Popup kapatsan da tarama devam eder.</p>
     </main>
 
+    <script src="lib/config.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

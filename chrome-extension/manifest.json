@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "AgenticQA - Veri Toplayıcı",
-  "version": "1.6.2",
-  "description": "E-ticaret sayfasından canlı DOM, CSS ve sepet bilgisi toplar.",
+  "version": "1.8.4",
+  "description": "E-ticaret sayfasini tarar, veriyi admin konsoluna gonderir.",
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
@@ -24,6 +24,7 @@
         "lib/uxMetrics.js",
         "lib/contrastAnalyzer.js",
         "lib/featureBuilder.js",
+        "lib/personaSimulator.js",
         "lib/visibleDataCapture.js",
         "lib/cartExtractor.js",
         "lib/cssCapture.js",
