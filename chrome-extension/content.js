@@ -43,7 +43,9 @@
       css: isFast ? window.KonseyCssCapture.captureFast() : window.KonseyCssCapture.captureHeavy()
     };
 
-    payload.ml_features = window.KonseyFeatureBuilder.build(payload);
+    const built = window.KonseyFeatureBuilder.build(payload);
+    payload.ml_features = built.ml_features;
+    payload.analysis_lanes = built.analysis_lanes;
     return payload;
   }
 

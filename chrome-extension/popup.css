@@ -169,6 +169,127 @@ body {
   font-weight: 500;
 }
 
+.lanes {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #eee;
+}
+
+.lanes-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.lanes-head h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.lanes-overall {
+  font-size: 11px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.lanes-note {
+  margin: 0 0 10px;
+  font-size: 10px;
+  color: #888;
+  line-height: 1.4;
+}
+
+.lane-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lane {
+  padding: 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.lane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.lane-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.lane-score {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.lane-low .lane-score {
+  color: #15803d;
+}
+
+.lane-medium .lane-score {
+  color: #b45309;
+}
+
+.lane-high .lane-score {
+  color: #b91c1c;
+}
+
+.lane-track {
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lane-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+.lane-low .lane-fill {
+  background: #22c55e;
+}
+
+.lane-medium .lane-fill {
+  background: #f59e0b;
+}
+
+.lane-high .lane-fill {
+  background: #ef4444;
+}
+
+.lane-meta {
+  margin: 6px 0 0;
+  font-size: 10px;
+  color: #888;
+}
+
+.lane-highlights {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #555;
+  line-height: 1.35;
+}
+
 .block {
   margin-top: 14px;
   padding-top: 14px;

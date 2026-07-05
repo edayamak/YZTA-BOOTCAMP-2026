@@ -67,7 +67,7 @@ function setBadgeRunning(phase) {
   chrome.action.setBadgeBackgroundColor({ color: "#2563eb" });
 
   const label =
-    phase === "heavy" ? "Konsey AI - DOM/CSS hazırlanıyor…" : "Konsey AI - Analiz çalışıyor…";
+    phase === "heavy" ? "AgenticQA - DOM/CSS hazırlanıyor…" : "AgenticQA - Analiz çalışıyor…";
   chrome.action.setTitle({ title: label });
 
   const frames = phase === "heavy" ? ["…", "··", "·"] : ["•", "••", "•••"];
@@ -86,11 +86,11 @@ function setBadgeDone() {
   clearBadgeTimer();
   chrome.action.setBadgeText({ text: "✓" });
   chrome.action.setBadgeBackgroundColor({ color: "#16a34a" });
-  chrome.action.setTitle({ title: "Konsey AI - Analiz tamamlandı" });
+  chrome.action.setTitle({ title: "AgenticQA - Analiz tamamlandı" });
 
   setTimeout(() => {
     chrome.action.setBadgeText({ text: "" });
-    chrome.action.setTitle({ title: "Konsey AI" });
+    chrome.action.setTitle({ title: "AgenticQA" });
   }, 5000);
 }
 
@@ -98,7 +98,7 @@ function setBadgeError() {
   clearBadgeTimer();
   chrome.action.setBadgeText({ text: "!" });
   chrome.action.setBadgeBackgroundColor({ color: "#dc2626" });
-  chrome.action.setTitle({ title: "Konsey AI - Analiz hatası" });
+  chrome.action.setTitle({ title: "AgenticQA - Analiz hatası" });
 }
 
 chrome.runtime.onStartup.addListener(async () => {
@@ -147,6 +147,7 @@ async function runAnalysis(tabId, url) {
     };
 
     fullPayload.ml_features = fastRes.payload.ml_features;
+    fullPayload.analysis_lanes = fastRes.payload.analysis_lanes;
 
     await chrome.storage.session.set({
       lastCaptureHeavy: {

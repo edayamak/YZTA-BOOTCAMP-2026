@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Konsey AI</title>
+    <title>AgenticQA</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
     <main class="panel">
       <header class="top">
         <div>
-          <h1>Konsey AI</h1>
+          <h1>AgenticQA</h1>
           <p class="muted">Sayfa analizi</p>
         </div>
       </header>
@@ -47,6 +47,15 @@ Platform  -</pre>
           <dd id="metricProducts">-</dd>
         </div>
       </dl>
+
+      <section class="lanes hidden" id="lanesSection">
+        <div class="lanes-head">
+          <h2>Analiz Hatları</h2>
+          <span class="lanes-overall" id="lanesOverall">-</span>
+        </div>
+        <p class="lanes-note">Risk skoru: 0 iyi · 100 kötü (yüksek % = daha fazla sorun)</p>
+        <ul class="lane-list" id="laneList"></ul>
+      </section>
 
       <section class="block hidden" id="downloadSection">
         <h2>İndir</h2>

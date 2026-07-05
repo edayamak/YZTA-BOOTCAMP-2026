@@ -12,6 +12,9 @@ const sitePlatformBlock = document.getElementById("sitePlatformBlock");
 const metricCart = document.getElementById("metricCart");
 const metricContrast = document.getElementById("metricContrast");
 const metricProducts = document.getElementById("metricProducts");
+const lanesSection = document.getElementById("lanesSection");
+const laneList = document.getElementById("laneList");
+const lanesOverall = document.getElementById("lanesOverall");
 const progressWrap = document.getElementById("progressWrap");
 const progressLabel = document.getElementById("progressLabel");
 const progressFill = document.getElementById("progressFill");
@@ -53,6 +56,7 @@ function buildPreview(payload) {
       url: payload.page.url,
       title: payload.page.title,
       platform: payload.page.platform_hints,
+      analysis_lanes: payload.analysis_lanes,
       ml_features: payload.ml_features,
       cart: {
         cart_item_count: payload.cart.cart_item_count,
@@ -73,13 +77,13 @@ function buildPreview(payload) {
 }
 
 function buildHtmlExport(payload) {
-  const header = `<!-- Konsey AI | ${payload.page.url} | ${payload.captured_at} -->\n`;
+  const header = `<!-- AgenticQA | ${payload.page.url} | ${payload.captured_at} -->\n`;
   return header + (payload.dom?.html || "<!-- DOM henuz hazir degil -->");
 }
 
 function buildCssExport(payload) {
   const css = payload.css || {};
-  const lines = [`/* Konsey AI | ${payload.page.url} | ${payload.captured_at} */`, ""];
+  const lines = [`/* AgenticQA | ${payload.page.url} | ${payload.captured_at} */`, ""];
 
   (css.inline_styles || []).forEach((block, i) => {
     lines.push(`/* inline #${i + 1} */`, block.content || "", "");
@@ -127,6 +131,65 @@ function formatSitePlatformBlock(hostname, platform) {
   return `Site      ${site}\nPlatform  ${plat}`;
 }
 
+function formatRiskSummary(score, level) {
+  const tone =
+    level === "low" ? "İyi" : level === "medium" ? "Dikkat" : "Kritik";
+  return `Risk %${score} · ${tone}`;
+}
+
+function renderLaneItem(lane) {
+  const li = document.createElement("li");
+  li.className = `lane lane-${lane.risk_level}`;
+
+  const head = document.createElement("div");
+  head.className = "lane-head";
+
+  const title = document.createElement("span");
+  title.className = "lane-title";
+  title.textContent = lane.label;
+
+  const score = document.createElement("span");
+  score.className = "lane-score";
+  score.textContent = formatRiskSummary(lane.risk_score, lane.risk_level);
+
+  head.appendChild(title);
+  head.appendChild(score);
+
+  const track = document.createElement("div");
+  track.className = "lane-track";
+  const fill = document.createElement("div");
+  fill.className = "lane-fill";
+  fill.style.width = `${lane.risk_score}%`;
+  track.appendChild(fill);
+
+  const highlights = document.createElement("p");
+  highlights.className = "lane-highlights";
+  highlights.textContent =
+    lane.highlights?.length > 0 ? lane.highlights.join(" · ") : "Belirgin sinyal yok";
+
+  li.appendChild(head);
+  li.appendChild(track);
+  li.appendChild(highlights);
+  return li;
+}
+
+function renderLanes(payload) {
+  const lanes = payload.analysis_lanes;
+  if (!lanes?.lanes) {
+    lanesSection.classList.add("hidden");
+    return;
+  }
+
+  laneList.replaceChildren();
+  ["trust", "ux_churn", "conversion"].forEach((key) => {
+    const lane = lanes.lanes[key];
+    if (lane) laneList.appendChild(renderLaneItem(lane));
+  });
+
+  lanesOverall.textContent = formatRiskSummary(lanes.overall_risk_score, lanes.overall_risk_level);
+  lanesSection.classList.remove("hidden");
+}
+
 function renderSummary(payload) {
   const f = payload.ml_features || {};
   sitePlatformBlock.textContent = formatSitePlatformBlock(
@@ -148,6 +211,7 @@ function renderSummary(payload) {
   metricContrast.textContent = c[payload.contrast?.contrast_quality] || "-";
   metricProducts.textContent = String(payload.ecommerce?.product_listings?.length || 0);
 
+  renderLanes(payload);
   summaryEl.classList.remove("hidden");
 }
 
@@ -212,7 +276,7 @@ async function refreshFromStorage() {
     analyzeBtn.disabled = true;
     setProgress(true);
     if (job.phase === "fast") {
-      setProgress(true, "Hızlı analiz… sepet, UX, fiyat", 35);
+      setProgress(true, "Hızlı analiz… güven, UX, satış hunisi", 35);
       setStatus("Analiz çalışıyor - popup kapatabilirsin.", "busy");
     } else {
       setProgress(true, "DOM/CSS hazırlanıyor…", 75);
@@ -301,7 +365,7 @@ downloadHtmlBtn.addEventListener("click", async () => {
   }
   const s = payload.captured_at.replace(/[:.]/g, "-");
   downloadFile(
-    `konsey-dom-${slugify(payload.page.hostname)}-${s}.html`,
+    `agenticqa-dom-${slugify(payload.page.hostname)}-${s}.html`,
     buildHtmlExport(payload),
     "text/html"
   );
@@ -312,7 +376,7 @@ downloadCssBtn.addEventListener("click", async () => {
   const payload = await mergeHeavyAssets(lastPayload);
   const s = payload.captured_at.replace(/[:.]/g, "-");
   downloadFile(
-    `konsey-css-${slugify(payload.page.hostname)}-${s}.css`,
+    `agenticqa-css-${slugify(payload.page.hostname)}-${s}.css`,
     buildCssExport(payload),
     "text/css"
   );
@@ -323,7 +387,7 @@ downloadJsonBtn.addEventListener("click", async () => {
   const payload = await mergeHeavyAssets(lastPayload);
   const s = payload.captured_at.replace(/[:.]/g, "-");
   downloadFile(
-    `konsey-analiz-${slugify(payload.page.hostname)}-${s}.json`,
+    `agenticqa-analiz-${slugify(payload.page.hostname)}-${s}.json`,
     buildJsonExport(payload),
     "text/json"
   );

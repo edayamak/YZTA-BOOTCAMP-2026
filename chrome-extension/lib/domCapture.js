@@ -139,7 +139,7 @@
 
     let truncated = false;
     if (html.length > HTML_CAP) {
-      html = `${html.slice(0, HTML_CAP)}\n<!-- Konsey AI: DOM ${HTML_CAP} karakterde kesildi -->`;
+      html = `${html.slice(0, HTML_CAP)}\n<!-- AgenticQA: DOM ${HTML_CAP} karakterde kesildi -->`;
       truncated = true;
     }
 
