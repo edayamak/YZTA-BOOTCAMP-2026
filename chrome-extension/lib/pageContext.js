@@ -3,6 +3,7 @@
     const host = window.location.hostname.toLowerCase();
 
     if (host.includes("amazon.")) return ["amazon"];
+    if (host.includes("mediamarkt")) return ["mediamarkt"];
     if (host.includes("trendyol")) return ["trendyol"];
     if (host.includes("hepsiburada")) return ["hepsiburada"];
     if (host.includes("n11.com")) return ["n11"];
@@ -14,6 +15,7 @@
 
     const html = document.documentElement.outerHTML;
 
+    if (/webmobile-pwa|mms-app-root|assets\.mmsrg\.com/i.test(html)) return ["mediamarkt"];
     if (/cdn\.myikas\.com|ikas\.com/i.test(html)) return ["ikas"];
     if (/woocommerce|wp-content/i.test(html)) return ["woocommerce"];
     if (/magento/i.test(html)) return ["magento"];

@@ -29,6 +29,132 @@
   ];
   const PRODUCT_MARKERS =
     '[aria-label="product-name"], [class*="sidebar-product"], [class*="cart-item"], [class*="basket-item"], input[type="number"][min="1"]';
+  const CART_CONTROL_HREF =
+    /\/checkout|\/cart|\/bag|\/sepet|\/basket|\/warenkorb|\/shop\/cart|\/order\/checkout/i;
+  const CART_CONTROL_ARIA =
+    /alışveriş sepeti|alisveris sepeti|shopping bag|shopping cart|my bag|your bag|open bag|view bag|(?:^|[,\s])(?:sepetim|sepet|cart|basket|cesta|bolsa|warenkorb)(?:$|[,\s\d])/i;
+  const CART_CONTROL_META =
+    /cart|bag|basket|sepet|checkout|warenkorb/i;
+
+  function isCartControl(el) {
+    if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
+    if (!isCartRootEligible(el)) return false;
+
+    const aria = el.getAttribute("aria-label") || "";
+    const href = el.getAttribute("href") || "";
+    const testMeta = [
+      el.getAttribute("data-testid") || "",
+      el.getAttribute("data-test") || "",
+      el.getAttribute("data-qa") || "",
+      el.id || ""
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    if (CART_CONTROL_ARIA.test(aria)) return true;
+    if (href && CART_CONTROL_HREF.test(href)) return true;
+    if (CART_CONTROL_META.test(testMeta)) return true;
+
+    return false;
+  }
+
+  function parseCountFromAriaLabel(label) {
+    const text = window.KonseyShared.normalizeText(label);
+    if (!text) return null;
+
+    if (/\b(boş|bos|empty)\b/i.test(text) && /sepet|cart|bag|basket/i.test(text)) {
+      return 0;
+    }
+
+    const sepetNumber = text.match(/\bsepet\b[^\d]{0,10}(\d{1,2})\b/i);
+    if (sepetNumber) {
+      const count = parseInt(sepetNumber[1], 10);
+      if (count >= 0 && count < 100) return count;
+    }
+
+    const patterns = [
+      /(\d+)\s*(?:item|items|ürün|urun|product|products|piece|pieces|adet|parça|parca)/i,
+      /(?:item|items|ürün|urun|product|products|adet|parça|parca)[^\d]{0,12}(\d+)/i,
+      /,\s*(\d+)\s*(?:$|[,.])/,
+      /:\s*(\d+)\b/,
+      /\(\s*(\d+)\s*\)/
+    ];
+
+    for (const pattern of patterns) {
+      const match = text.match(pattern);
+      if (match) {
+        const count = parseInt(match[1], 10);
+        if (count >= 0 && count < 100) return count;
+      }
+    }
+
+    return null;
+  }
+
+  function extractBadgeCountFromControl(control) {
+    let best = null;
+
+    control.querySelectorAll("span, div, sup, strong, b, p, em").forEach((el) => {
+      if (!isCartRootEligible(el)) return;
+
+      const text = window.KonseyShared.normalizeText(el.textContent);
+      if (!/^\d{1,2}$/.test(text)) return;
+
+      const childText = Array.from(el.children)
+        .map((child) => window.KonseyShared.normalizeText(child.textContent))
+        .join("");
+      if (childText && childText !== text) return;
+
+      const count = parseInt(text, 10);
+      if (count <= 0 || count >= 100) return;
+
+      best = count;
+    });
+
+    if (best !== null) return best;
+
+    return parseCountFromAriaLabel(control.getAttribute("aria-label") || "");
+  }
+
+  function findHeaderCartControls() {
+    const controls = [];
+    const seen = new Set();
+
+    const add = (el) => {
+      if (!el || seen.has(el)) return;
+      seen.add(el);
+      controls.push(el);
+    };
+
+    document
+      .querySelectorAll('a[href], button, [role="button"]')
+      .forEach((el) => {
+        if (!isCartControl(el)) return;
+        add(el);
+      });
+
+    return controls;
+  }
+
+  function extractHeaderCartCount() {
+    const controls = findHeaderCartControls();
+    let best = null;
+    let sawEmptyCart = false;
+
+    for (const control of controls) {
+      const count = extractBadgeCountFromControl(control);
+      if (count === 0) {
+        sawEmptyCart = true;
+        continue;
+      }
+      if (count !== null) {
+        best = Math.max(best || 0, count);
+      }
+    }
+
+    if (best !== null && best > 0) return best;
+    return sawEmptyCart ? 0 : null;
+  }
 
   function meta(el) {
     if (!el || el.nodeType !== Node.ELEMENT_NODE) return "";
@@ -166,7 +292,14 @@
   }
 
   function extractCartCount(region) {
+    const headerCount = extractHeaderCartCount();
+    if (headerCount !== null) return headerCount;
+
     const badgeSelectors = [
+      "[class*='cart-icon'] [class*='count']",
+      "[class*='bag-icon'] [class*='count']",
+      "[data-qa*='cart'][data-qa*='count']",
+      "[data-test*='cart'][data-test*='count']",
       "#nav-cart-count",
       "#nav-ewc-cart-count",
       ".total_product_count",

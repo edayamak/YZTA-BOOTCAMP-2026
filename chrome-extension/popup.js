@@ -8,7 +8,7 @@ const downloadCssBtn = document.getElementById("downloadCssBtn");
 const downloadJsonBtn = document.getElementById("downloadJsonBtn");
 const htmlSizeEl = document.getElementById("htmlSize");
 const cssSizeEl = document.getElementById("cssSize");
-const metricPlatform = document.getElementById("metricPlatform");
+const sitePlatformBlock = document.getElementById("sitePlatformBlock");
 const metricCart = document.getElementById("metricCart");
 const metricContrast = document.getElementById("metricContrast");
 const metricProducts = document.getElementById("metricProducts");
@@ -116,10 +116,23 @@ function downloadFile(filename, content, mimeType) {
   URL.revokeObjectURL(url);
 }
 
+function formatPlatformLabel(platform) {
+  if (!platform || platform === "unknown") return "Bilinmiyor";
+  return platform;
+}
+
+function formatSitePlatformBlock(hostname, platform) {
+  const site = hostname || "-";
+  const plat = formatPlatformLabel(platform);
+  return `Site      ${site}\nPlatform  ${plat}`;
+}
+
 function renderSummary(payload) {
   const f = payload.ml_features || {};
-  metricPlatform.textContent =
-    payload.page.primary_platform || f.platform || payload.page.platform_hints?.[0] || "-";
+  sitePlatformBlock.textContent = formatSitePlatformBlock(
+    payload.page.hostname,
+    payload.page.primary_platform || f.platform || payload.page.platform_hints?.[0]
+  );
 
   const n = payload.cart?.cart_item_count;
   const t = payload.cart?.cart_total?.amount;
@@ -127,7 +140,7 @@ function renderSummary(payload) {
   const qty = payload.cart?.line_items?.[0]?.quantity;
   const qtyLabel = qty && qty > 1 ? ` x${qty}` : "";
   metricCart.textContent =
-    n != null
+    n != null && n > 0
       ? `${n} ürün${t ? ` · ${t}` : ""}${firstItem ? ` (${(firstItem.length > 26 ? `${firstItem.slice(0, 26)}…` : firstItem)}${qtyLabel})` : ""}`
       : "Boş";
 
