@@ -94,35 +94,81 @@ E-ticaret sayfasını aç → eklenti → **Siteyi Tara** → özet popup'ta gö
 
 ## Product Backlog URL
 
-[Miro / Jira / Trello Backlog Board Linki](https://miro.com/app/board/uXjVOSSCpsI=/)
+[Backlog Board Linki](https://app.asana.com/1/1216279486743436/project/1216277599548850/board/1216278202254806)
 
 ---
 
 # Sprint 1
 
 * **Backlog düzeni ve Story seçimleri**:
-* **Backlog düzeni ve Story seçimleri:**
-  Sprint 1 kapsamında, AgenticQA platformunun temel altyapısının kurulması hedeflenmiştir. Takım olarak Bucket System metodolojisini kullandık ve iş listemizi efor, belirsizlik ve teknik zorluk derecelerine göre gruplandırdık:
-  * **ML Altyapısı:** CatBoost ile Anomali ve Churn modellerinin eğitimi, hiperparametre optimizasyonu (class_weights ve best_iteration takipleri) -> **Bucket: 13**
-  * **Backend:** FastAPI mimarisinin kurulması, endpoint şemalarının (Pydantic) oluşturulması -> **Bucket: 2**
-  * **Feature Extraction:** Regex tabanlı URL ve HTTP POST body özellik çıkarım fonksiyonlarının yazılması -> **Bucket: 5**
-  * **Entegrasyon & Debugging:** Uvicorn sunucu kilitlenmeleri, yerel klasör yolları ve file senkronizasyon hatalarının çözülmesi -> **Bucket: 8**
-  * **Chrome eklentisi (veri toplayıcı):** Canlı DOM/CSS/sepet yakalama, üç analiz hattı, persona simülasyonu, backend'e POST -> **Bucket: 6**
-  * **Backend intake:** Eklenti payload'ı için `/api/analyze`, `capture_id` üretimi, capture saklama ve ML köprüsü -> **Bucket: 4**
+
+Sprint 1 kapsamında, AgenticQA platformunun temel makine öğrenmesi ve backend altyapısının oluşturulması hedeflenmiştir. Sprint planlama toplantısında Product Backlog önceliklendirilmiş ve takım kapasitesi dikkate alınarak **Fibonacci Story Point** yöntemi (3, 5, 8) ile tahminleme yapılmıştır. Story'ler, Sprint hedefini aşmayacak şekilde seçilmiş ve daha küçük yapılabilir işlere (Task/Subtask) bölünerek Asana Sprint Board üzerinde takip edilmiştir.
+
+Sprint 1 kapsamında seçilen Story'ler aşağıdaki gibidir:
+
+| Story | Açıklama | Story Point |
+|--------|----------|------------:|
+| **Design ML Architecture** | AgenticQA platformunun makine öğrenmesi mimarisinin oluşturulması, kullanılacak modellerin ve veri akışının planlanması. | **3** |
+| **Implement Feature Engineering Pipeline** | Clickstream ve HTTP isteklerinden davranışsal ve güvenlik odaklı özelliklerin çıkarılması, veri ön işleme süreçlerinin geliştirilmesi. | **5** |
+| **Develop Churn Prediction Model** | CatBoost tabanlı kullanıcı terk (Churn) tahmin modelinin geliştirilmesi ve model optimizasyonunun yapılması. | **8** |
+| **Develop HTTP Anomaly Detection Model** | HTTP isteklerinden anormal davranışların tespit edilmesini sağlayan CatBoost tabanlı modelin geliştirilmesi. | **8** |
+| **Develop FastAPI Prediction Service** | Eğitilen makine öğrenmesi modellerini REST API üzerinden servis eden FastAPI altyapısının ve tahmin endpoint'lerinin geliştirilmesi. | **5** |
+
+Sprint süresince bu Story'ler aşağıdaki teknik görevler ile desteklenmiştir:
+
+- CatBoost tabanlı Churn Prediction ve HTTP Anomaly Detection modellerinin geliştirilmesi
+- Feature Engineering ve veri ön işleme süreçlerinin tamamlanması
+- FastAPI tabanlı REST API servislerinin geliştirilmesi
+- `/predict/churn` ve `/predict/anomaly` endpoint'lerinin oluşturulması
+- Chrome Extension ile Backend arasındaki `/api/analyze` veri akışının hazırlanması
+- Extension tarafından gönderilen analiz kayıtları için `capture_id` yapısının oluşturulması
+
+Sprint sonunda planlanan Story'lerin tamamı başarıyla tamamlanmış ve Sprint hedeflerine ulaşılmıştır.
 
 * **Daily Scrum**:
-* Sprint boyunca haftada 3 gün, 15'er dakikalık Daily Scrum toplantıları yapılmıştır.
-Öne Çıkan Gelişmeler: Veri bilimi bacağında CatBoost modellerinin %97.42 (Anomali) ve %86.35 (Churn) AUC başarı metriklerine ulaşmasıyla ilk büyük milat tamamlanmıştır. Geliştirme ekibi tarafında AgenticQA Chrome eklentisi (v1.8.4) ile modüler FastAPI backend intake katmanı tamamlanmış; eklenti `POST /api/analyze` üzerinden tarama paketini backend'e iletebilir hale gelmiştir.  
-Karşılaşılan Engeller (Impediments): Google Colab ile Drive arasındaki dosya yazma/okuma senkronizasyon problemleri ve Uvicorn'un arka planda modelleri yüklerken test isteklerinde fırlattığı Connection refused hataları takımı kısa süreli bloke etmiştir. Eklenti tarafında Uvicorn `--reload` döngüsü (`.venv` izleme) ve service worker'da config destructuring kaynaklı tarama hataları giderilmiştir.
+* Sprint boyunca haftada 3 gün, 15'er dakikalık Daily Scrum toplantıları yapılmıştır. 
+* Öne Çıkan Gelişmeler: 
+* - Veri bilimi bacağında CatBoost modellerinin %97.42 (Anomali) ve %86.35 (Churn) AUC başarı metriklerine ulaşmasıyla ilk büyük milat tamamlanmıştır. Geliştirme ekibi tarafında AgenticQA Chrome eklentisi (v1.8.4) ile modüler FastAPI backend intake katmanı tamamlanmış; eklenti `POST /api/analyze` üzerinden tarama paketini backend'e iletebilir hale gelmiştir.
+* - Karşılaşılan Engeller (Impediments): Google Colab ile Drive arasındaki dosya yazma/okuma senkronizasyon problemleri ve Uvicorn'un arka planda modelleri yüklerken test isteklerinde fırlattığı Connection refused hataları takımı kısa süreli bloke etmiştir. Eklenti tarafında Uvicorn `--reload` döngüsü (`.venv` izleme) ve service worker'da config destructuring kaynaklı tarama hataları giderilmiştir.
 
-* **Sprint board update**: Sprint board screenshotları:
-* <img width="3315" height="1907" alt="sprint_1_board" src="https://github.com/user-attachments/assets/6468543c-32fd-4523-b8a8-8ab1bc67a628" />
-* Sprint 1 sonunda, çalışan ve canlı testleri başarıyla geçerek `{'status': 'ok'}` yanıtı veren kararlı bir tahmin API'si (Product Increment) elde edilmiştir.
-  * **ML API:** `/predict/anomaly` ve `/predict/churn` endpoint'leri üzerinden gerçek zamanlı veri kabul etmeye hazırdır.
-  * **Extension intake API:** `/api/analyze` eklenti JSON'unu alır; `capture_id`, lane özeti ve ML skorlarını döner. `/api/capture/{capture_id}` admin/dashboard için saklanan taramayı sunar.
-* Sprint Başlangıcı: Tüm story'ler To Do sütununda Bucket puanlarıyla etiketlendi.
-Sprint Ortası: Özellik çıkarımı ve model eğitimleri tamamlanarak In Progress (Yapılıyor) sütunundan Review/QA aşamasına aktarıldı. Eklenti lane mimarisi ve backend modüler yapısı paralel ilerledi.
-Sprint Sonu: FastAPI backend entegrasyonunun ve yerel testlerin başarıyla tamamlanmasıyla ML bacağındaki tüm görevler Done (Tamamlandı) sütununa çekildi. Chrome eklentisi ve extension intake backend'i de Sprint 1 increment'ine dahil edildi.
+* - Sprint 1 süresince gerçekleştirilen Daily Scrum toplantılarından örnek ekran görüntülerine aşağıdaki bağlantıdan ulaşılabilir.
+
+- **Sprint 1 Daily Scrum Kayıtları:** [DailyScrum](images/daily_scrum)
+ 
+* **Sprint board update**: 
+* Sprint boyunca Product Backlog Item'ları planlandığı şekilde Asana Sprint Board üzerinde takip edilmiştir. Sprint ilerledikçe Story'ler **Backlog → To Do → In Progress → Done** akışı doğrultusunda güncellenmiş ve tamamlanan geliştirmeler Sprint Board üzerinden izlenmiştir.
+* Sprint sonunda AgenticQA platformunun ilk çalışan **Product Increment**'i başarıyla oluşturulmuştur. Geliştirilen FastAPI tabanlı servisler ile Chrome Extension arasındaki veri akışı tamamlanmış, makine öğrenmesi modelleri REST API üzerinden erişilebilir hale getirilmiştir.
+* Sprint board screenshotları:
+<p align="center">
+  <img src="images/sprint1.1.png" alt="Sprint 1 Başlangıcı" width="900">
+</p>
+<p align="center">
+  <img src="images/sprint1.2.png" alt="Sprint 1 Ortası" width="900">
+</p>
+<p align="center">
+  <img src="images/sprint1.3.png" alt="Sprint 1 Sonu" width="900">
+</p>
+
+* **Sprint Başlangıcı**
+
+* - Sprint Planlama toplantısında seçilen Story'ler Story Point değerleriyle önceliklendirilerek **To Do** ve **In Progress** sütunlarına taşındı.
+* - Sprint 2 ve Sprint 3 kapsamında geliştirilecek özellikler Product Backlog içerisinde bırakıldı.
+
+
+* **Sprint Ortası**
+
+* - Machine Learning Architecture ve Feature Engineering çalışmaları büyük ölçüde tamamlandı.
+* - Churn Prediction ve HTTP Anomaly Detection modellerinin geliştirilmesi planlandığı şekilde ilerledi.
+* - Chrome Extension ile Backend arasındaki entegrasyon çalışmaları başlatıldı.
+
+
+* **Sprint Sonu**
+* - Sprint kapsamında taahhüt edilen tüm Story'ler başarıyla tamamlanarak **Done** sütununa taşındı.
+* - CatBoost tabanlı **Churn Prediction** ve **HTTP Anomaly Detection** modelleri başarıyla geliştirildi.
+* - FastAPI tabanlı REST API servisleri tamamlandı ve `/predict/churn` ile `/predict/anomaly` endpoint'leri çalışır duruma getirildi.
+* - Chrome Extension tarafından üretilen analiz verilerinin `/api/analyze` endpoint'i üzerinden Backend'e iletilmesi başarıyla sağlandı.
+* - Oluşturulan `capture_id` yapısı sayesinde analiz kayıtlarının Admin Dashboard tarafında kullanılabilecek şekilde saklanması için gerekli altyapı hazırlandı.
+
 
 * **Geliştirme ekibi — teslim edilenler (Extension + Backend intake)**:
 
@@ -149,6 +195,8 @@ Sprint Sonu: FastAPI backend entegrasyonunun ve yerel testlerin başarıyla tama
 
   
 * **Sprint Review**: Sprint 1 hedeflerine %100 oranında ulaşılmıştır. Paydaşlara ve takım üyelerine çalışan API mimarisi sunulmuş, CatBoost modellerinin validasyon başarıları gösterilmiştir. Yapılan interaktif testlerde API'nin tıkır tıkır çalıştığı ve model dosyalarını başarıyla yüklediği doğrulanmıştır. Extension → backend intake akışı demo edilmiş; eklentinin mağaza sayfasından veri toplayıp backend'e ilettiği gösterilmiştir. Bir sonraki sprintte admin konsol/dashboard arayüzünün bu `capture_id` akışına bağlanması onaylanmıştır.
+
+ 
 * **Sprint Retrospective:**
 * **Ne İyi Gitti? :**
 Büyük veri kümelerini chunk'lar halinde işleme stratejimiz çok başarılı oldu; RAM patlaması yaşamadan veri setini kararlı hale getirdik.
