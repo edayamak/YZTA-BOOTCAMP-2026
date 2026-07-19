@@ -213,17 +213,19 @@ Capture store şu an bellekte; admin konsol gelince kalıcı depolama (DB veya d
 # Sprint 2
 
 ### Sprint 2 Backlog Düzeni ve Story Seçimleri
-Sprint 1 Retrospective'de planlandığı üzere, Sprint 2 kapsamının ana hedefi Admin Dashboard'un (admin konsol) geliştirilmesi ve Chrome eklentisi/backend tarafından üretilen `capture_id` akışına bağlanmasıydı. 
+Sprint 2 kapsamında AgenticQA platformunun ilk çalışan prototipinin uçtan uca entegrasyonunun sağlanması hedeflenmiştir. Sprint planlama toplantısında Product Backlog yeniden önceliklendirilmiş, Sprint 1 sonunda tamamlanan makine öğrenmesi ve backend altyapısı üzerine kullanıcı arayüzü, veri tabanı tasarımı ve AI Agent entegrasyonu çalışmalarına odaklanılmıştır. Story tahminlemelerinde Fibonacci Story Point yöntemi (3, 5, 8, 13) kullanılmış, Story'ler daha küçük Task ve Subtask'lara ayrılarak Asana Sprint Board üzerinde takip edilmiştir.
 
-Sprint 2 süresince takım içi iletişimde aksaklıklar yaşanmış; Backend, ML ve Chrome Extension bacaklarında Sprint 2 kapsamında hangi Story'lerin seçildiği, hangi Story Point'lerle planlandığı ve hangilerinin tamamlandığı bu raporun yazıldığı tarih itibarıyla ilgili takım üyelerinden teyit alınamamıştır. Bu bölümler doğrulandığında rapora eklenecektir.
+Sprint 2 kapsamında seçilen Story'ler aşağıdaki gibidir:
 
-Frontend/Admin Dashboard bacağında fiilen tamamlanan iş aşağıdaki gibidir:
-
-| Story | Açıklama | Durum |
-| :--- | :--- | :--- |
-| **Build Admin Dashboard (Frontend)** | Chrome eklentisinin ürettiği `capture_id` akışını okuyan, risk skorları ve persona simülasyon sonuçlarını gösteren admin konsolun geliştirilmesi. | **Tamamlandı** |
-| **Connect Dashboard to Backend Capture API** | `GET /api/capture/{id}` ve `GET /api/captures` endpoint'lerine bağlanarak canlı tarama verisinin dashboard'da render edilmesi. | **Tamamlandı** |
-| **Persona Simulation Cards** | `agent_simulation.personas` verisinin (Aceleci Alışverişçi, Erişilebilirlik Hassas Kullanıcı, Kötü Niyetli Saldırgan) yeniden kullanılabilir kart component'i olarak render edilmesi. | **Tamamlandı** |
+| Story | Açıklama | Story Point |
+|--------|----------|------------:|
+| Dashboard UI Development | AgenticQA analiz sonuçlarını görüntüleyebilecek React tabanlı kullanıcı arayüzünün geliştirilmesi. | 8 |
+| Develop React Frontend | Frontend uygulamasının temel bileşenlerinin ve sayfa yapısının oluşturulması. | 8 |
+| Frontend–Backend Integration | React uygulamasının FastAPI servisleri ile haberleşmesinin sağlanması. | 8 |
+| Improve Chrome Extension | Chrome Extension'ın veri toplama ve analiz süreçlerinin geliştirilmesi. | 5 |
+| Design PostgreSQL Database | Capture kayıtlarının ve analiz sonuçlarının saklanacağı PostgreSQL veri tabanı tasarımının hazırlanması. | 5 |
+| CrewAI Agent Orchestration | Çok ajanlı AI mimarisinin CrewAI kullanılarak yapılandırılması. | 13 |
+| Integrate AI Agent with Backend | AI Agent yapısının Backend servisleriyle entegre edilmesi. | 13 |
 
 #### Sprint süresince Frontend bacağında desteklenen teknik görevler:
 *   Tailwind CSS v4 kurulumunun tamamlanması (PostCSS entegrasyonu, `@import "tailwindcss"` eksikliğinin giderilmesi).
@@ -237,9 +239,20 @@ Frontend/Admin Dashboard bacağında fiilen tamamlanan iş aşağıdaki gibidir:
 Sprint 2 süresince planlanan Daily Scrum toplantılarının bir kısmı takım üyelerine ulaşılamaması nedeniyle gerçekleştirilememiştir. Bu durum, Sprint Retrospective bölümünde bir impediment (engel) olarak ele alınmıştır.
 
 ### Sprint Board Update
-Frontend bacağındaki Story'ler *Backlog → To Do → In Progress → Done* akışı doğrultusunda Sprint Board üzerinde güncellenmiş ve Sprint sonunda Done sütununa taşınmıştır. Backend, ML ve Chrome Extension bacaklarına ait board güncellemeleri bu raporun yazıldığı tarihte doğrulanamadığı için burada yer almamaktadır; ilgili takım üyelerinden bilgi alındığında eklenecektir.
+Sprint boyunca Product Backlog Item'ları planlandığı şekilde Asana Sprint Board üzerinde takip edilmiştir. Sprint ilerledikçe Story'ler Backlog → To Do → In Progress → Done akışı doğrultusunda güncellenmiş ve tamamlanan geliştirmeler Sprint Board üzerinden izlenmiştir.
 
-*   **Sprint Board Ekran Görüntüleri:** *[Eklenecek]*
+Sprint sonunda AgenticQA platformunun Frontend, Backend, Chrome Extension ve AI Agent bileşenleri birbirine entegre edilerek ilk uçtan uca çalışan sistem prototipi başarıyla oluşturulmuştur.
+
+*   **Sprint Board Ekran Görüntüleri:**
+ <p align="center">
+  <img src="images/Sprint2.1.png" alt="Sprint 2 Başlangıcı" width="900">
+</p>
+ <p align="center">
+  <img src="images/Sprint2.2.png" alt="Sprint 2 Ortası" width="900">
+</p>
+ <p align="center">
+  <img src="images/Sprint2.3.png" alt="Sprint 2 Sonu" width="900">
+</p>
 *   **Ürün Durumu Ekran Görüntüleri:** *[Eklenecek]*
 
 ---
@@ -257,10 +270,8 @@ Sprint sonunda Admin Dashboard'un ilk çalışan sürümü başarıyla tamamlanm
 ---
 
 ### 🔍 Sprint Review
-Frontend/Admin Dashboard bacağında Sprint 2 hedeflerine ulaşılmıştır: Eklentinin ürettiği `capture_id` akışı artık admin konsolda görselleştirilebilmektedir. 
 
-Backend, ML ve Chrome Extension bacaklarında Sprint 2 kapsamında ne kadar ilerleme kaydedildiği, ilgili takım üyelerine bu rapor yazılana kadar ulaşılamadığı için bu Sprint Review'a yansıtılamamıştır. Takım üyelerinden bilgi alındığında bu bölüm güncellenecektir.
-
+* Sprint sonunda React tabanlı kullanıcı arayüzü, Backend servisleri ve Chrome Extension başarılı şekilde entegre edilmiştir. PostgreSQL veri tabanı tasarımı hazırlanmış, CrewAI tabanlı AI Agent mimarisi Backend ile haberleşebilir hale getirilmiştir. Gerçekleştirilen demo sırasında Extension tarafından oluşturulan analizlerin Backend üzerinden işlendiği ve Dashboard üzerinde görüntülenebildiği doğrulanmıştır. Paydaşlar tarafından sistemin temel entegrasyonunun başarılı olduğu değerlendirilmiş ve bir sonraki Sprint kapsamında Deployment, Authentication ve sistem izleme (Monitoring) çalışmalarına devam edilmesi kararlaştırılmıştır.
 ---
 
 ### ↩️ Sprint Retrospective
