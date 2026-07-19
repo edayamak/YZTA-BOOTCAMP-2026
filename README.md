@@ -212,53 +212,67 @@ Capture store şu an bellekte; admin konsol gelince kalıcı depolama (DB veya d
 
 # Sprint 2
 
-Sprint 2
-Backlog düzeni ve Story seçimleri:
-Sprint 1 Retrospective'de planlandığı üzere, Sprint 2 kapsamının ana hedefi Admin Dashboard'un (admin konsol) geliştirilmesi ve Chrome eklentisi/backend tarafından üretilen capture_id akışına bağlanmasıydı. Sprint 2 süresince takım içi iletişimde aksaklıklar yaşanmış; Backend, ML ve Chrome Extension bacaklarında Sprint 2 kapsamında hangi Story'lerin seçildiği, hangi Story Point'lerle planlandığı ve hangilerinin tamamlandığı bu raporun yazıldığı tarih itibarıyla ilgili takım üyelerinden teyit alınamamıştır. Bu bölümler doğrulandığında rapora eklenecektir.
+### Sprint 2 Backlog Düzeni ve Story Seçimleri
+Sprint 1 Retrospective'de planlandığı üzere, Sprint 2 kapsamının ana hedefi Admin Dashboard'un (admin konsol) geliştirilmesi ve Chrome eklentisi/backend tarafından üretilen `capture_id` akışına bağlanmasıydı. 
+
+Sprint 2 süresince takım içi iletişimde aksaklıklar yaşanmış; Backend, ML ve Chrome Extension bacaklarında Sprint 2 kapsamında hangi Story'lerin seçildiği, hangi Story Point'lerle planlandığı ve hangilerinin tamamlandığı bu raporun yazıldığı tarih itibarıyla ilgili takım üyelerinden teyit alınamamıştır. Bu bölümler doğrulandığında rapora eklenecektir.
 
 Frontend/Admin Dashboard bacağında fiilen tamamlanan iş aşağıdaki gibidir:
 
-Story	Açıklama	Durum
-Build Admin Dashboard (Frontend)	Chrome eklentisinin ürettiği capture_id akışını okuyan, risk skorları ve persona simülasyon sonuçlarını gösteren admin konsolun geliştirilmesi.	Tamamlandı
-Connect Dashboard to Backend Capture API	GET /api/capture/{id} ve GET /api/captures endpoint'lerine bağlanarak canlı tarama verisinin dashboard'da render edilmesi.	Tamamlandı
-Persona Simulation Cards	agent_simulation.personas verisinin (Aceleci Alışverişçi, Erişilebilirlik Hassas Kullanıcı, Kötü Niyetli Saldırgan) yeniden kullanılabilir kart component'i olarak render edilmesi.	Tamamlandı
-Sprint süresince Frontend bacağında desteklenen teknik görevler:
+| Story | Açıklama | Durum |
+| :--- | :--- | :--- |
+| **Build Admin Dashboard (Frontend)** | Chrome eklentisinin ürettiği `capture_id` akışını okuyan, risk skorları ve persona simülasyon sonuçlarını gösteren admin konsolun geliştirilmesi. | **Tamamlandı** |
+| **Connect Dashboard to Backend Capture API** | `GET /api/capture/{id}` ve `GET /api/captures` endpoint'lerine bağlanarak canlı tarama verisinin dashboard'da render edilmesi. | **Tamamlandı** |
+| **Persona Simulation Cards** | `agent_simulation.personas` verisinin (Aceleci Alışverişçi, Erişilebilirlik Hassas Kullanıcı, Kötü Niyetli Saldırgan) yeniden kullanılabilir kart component'i olarak render edilmesi. | **Tamamlandı** |
 
-Tailwind CSS v4 kurulumunun tamamlanması (PostCSS entegrasyonu, @import "tailwindcss" eksikliğinin giderilmesi)
-DashboardLayout.jsx: sidebar, üst özet skor kartları (Genel Risk Skoru, Yapay Zeka Lane Analizi, ML Tahmin Motoru), hata durumu gösterimi
-AgentCards.jsx: persona kartlarının bağımsız, yeniden kullanılabilir component olarak ayrıştırılması ve gerçek backend şemasına (id, label, friction_score, would_abandon, events, findings) bağlanması
-Backend'in tam capture kaydındaki payload.agent_simulation veri yolunun doğru şekilde okunmasını sağlayan entegrasyon düzeltmesi
-Kullanılmayan / Vite scaffold'undan kalma dosyaların (App.css, tailwind.config.js) temizlenmesi
-Frontend README.md dokümantasyonunun backend README formatıyla tutarlı şekilde yazılması
-Daily Scrum:
+#### Sprint süresince Frontend bacağında desteklenen teknik görevler:
+*   Tailwind CSS v4 kurulumunun tamamlanması (PostCSS entegrasyonu, `@import "tailwindcss"` eksikliğinin giderilmesi).
+*   `DashboardLayout.jsx`: Sidebar, üst özet skor kartları (Genel Risk Skoru, Yapay Zeka Lane Analizi, ML Tahmin Motoru) ve hata durumu gösterimi.
+*   `AgentCards.jsx`: Persona kartlarının bağımsız, yeniden kullanılabilir component olarak ayrıştırılması ve gerçek backend şemasına (`id`, `label`, `friction_score`, `would_abandon`, `events`, `findings`) bağlanması.
+*   Backend'in tam capture kaydındaki `payload.agent_simulation` veri yolunun doğru şekilde okunmasını sağlayan entegrasyon düzeltmesi.
+*   Kullanılmayan / Vite scaffold'undan kalma dosyaların (`App.css`, `tailwind.config.js`) temizlenmesi.
+*   Frontend `README.md` dokümantasyonunun backend `README` formatıyla tutarlı şekilde yazılması.
 
-Sprint 2 süresince planlanan Daily Scrum toplantılarının bir kısmı takım üyelerine ulaşılamaması nedeniyle gerçekleştirilememiştir. Bu durum, Sprint Retrospective bölümünde bir impediment olarak ele alınmıştır.
+### Daily Scrum
+Sprint 2 süresince planlanan Daily Scrum toplantılarının bir kısmı takım üyelerine ulaşılamaması nedeniyle gerçekleştirilememiştir. Bu durum, Sprint Retrospective bölümünde bir impediment (engel) olarak ele alınmıştır.
 
-Sprint board update:
-Frontend bacağındaki Story'ler Backlog → To Do → In Progress → Done akışı doğrultusunda Sprint Board üzerinde güncellenmiş ve Sprint sonunda Done sütununa taşınmıştır. Backend, ML ve Chrome Extension bacaklarına ait board güncellemeleri bu raporun yazıldığı tarihte doğrulanamadığı için burada yer almamaktadır; ilgili takım üyelerinden bilgi alındığında eklenecektir.
+### Sprint Board Update
+Frontend bacağındaki Story'ler *Backlog → To Do → In Progress → Done* akışı doğrultusunda Sprint Board üzerinde güncellenmiş ve Sprint sonunda Done sütununa taşınmıştır. Backend, ML ve Chrome Extension bacaklarına ait board güncellemeleri bu raporun yazıldığı tarihte doğrulanamadığı için burada yer almamaktadır; ilgili takım üyelerinden bilgi alındığında eklenecektir.
 
-Sprint board screenshotları:
-[Eklenecek]
+*   **Sprint Board Ekran Görüntüleri:** *[Eklenecek]*
+*   **Ürün Durumu Ekran Görüntüleri:** *[Eklenecek]*
 
-Ürün Durumu: Ekran görüntüleri:
-[Eklenecek]
+---
 
-Sprint sonunda Admin Dashboard'un ilk çalışan sürümü tamamlanmıştır:
+### 🚀 Ürün Durumu (Sprint Sonu)
+Sprint sonunda Admin Dashboard'un ilk çalışan sürümü başarıyla tamamlanmıştır:
 
-Dashboard, URL üzerinden gelen capture_id ile (/dashboard?capture_id=cap_xxx) veya en son yapılan taramayı otomatik çekerek backend'den canlı veri okuyabilmektedir.
-Genel Risk Skoru, Risk Durumu (LOW/MEDIUM/HIGH), Yapay Zeka Lane Analizi'ndeki kritik bulgu sayısı ve siteden ayrılma eğilimi kartlarda gösterilmektedir.
-Aktif AI Ajan Ordusu bölümünde üç persona simülasyonu (Aceleci Alışverişçi, Erişilebilirlik Hassas Kullanıcı, Kötü Niyetli Saldırgan) sürtünme skoru, davranış log akışı ve ajan tespitleriyle birlikte kart olarak render edilmektedir.
-ML Tahmin Motoru kartı, backend'de CatBoost model dosyaları henüz yüklenmediğinde (models_loaded: false) bunu kullanıcıya açıkça bildirmekte, uygulama çökmemektedir.
-"Canlı Akış", "Raporlar & Loglar" ve "Ayarlar" sekmeleri Sprint 3 yol haritası olarak placeholder içerikle gösterilmektedir.
-Gerçek bir mağaza taraması (trendyol.com) ile uçtan uca test edilmiş; eklenti → backend → dashboard akışının çalıştığı doğrulanmıştır.
-Sprint Review:
-Frontend/Admin Dashboard bacağında Sprint 2 hedeflerine ulaşılmıştır: eklentinin ürettiği capture_id akışı artık admin konsolda görselleştirilebilmektedir. Backend, ML ve Chrome Extension bacaklarında Sprint 2 kapsamında ne kadar ilerleme kaydedildiği, ilgili takım üyelerine bu rapor yazılana kadar ulaşılamadığı için bu Sprint Review'a yansıtılamamıştır. Takım üyelerinden bilgi alındığında bu bölüm güncellenecektir.
+*   **Canlı Veri Bağlantısı:** Dashboard, URL üzerinden gelen `capture_id` ile (`/dashboard?capture_id=cap_xxx`) veya en son yapılan taramayı otomatik çekerek backend'den canlı veri okuyabilmektedir.
+*   **Risk Analiz Kartları:** Genel Risk Skoru, Risk Durumu (LOW/MEDIUM/HIGH), Yapay Zeka Lane Analizi'ndeki kritik bulgu sayısı ve siteden ayrılma eğilimi kartlarda gösterilmektedir.
+*   **Aktif AI Ajan Ordusu:** Bölümde üç persona simülasyonu (Aceleci Alışverişçi, Erişilebilirlik Hassas Kullanıcı, Kötü Niyetli Saldırgan) sürtünme skoru, davranış log akışı ve ajan tespitleriyle birlikte kart olarak render edilmektedir.
+*   **Hata Toleransı (Resilience):** ML Tahmin Motoru kartı, backend'de CatBoost model dosyaları henüz yüklenmediğinde (`models_loaded: false`) bunu kullanıcıya açıkça bildirmekte, uygulama çökmemektedir.
+*   **Gelecek Planlaması:** "Canlı Akış", "Raporlar & Loglar" ve "Ayarlar" sekmeleri Sprint 3 yol haritası olarak placeholder içerikle gösterilmektedir.
+*   **Uçtan Uca Test:** Gerçek bir mağaza taraması (trendyol.com) ile uçtan uca test edilmiş; *eklenti → backend → dashboard* akışının kararlı çalıştığı doğrulanmıştır.
 
-Sprint Retrospective:
+---
 
-Ne İyi Gitti?: Dashboard'u backend'in gerçek yanıt şemasına (summary, ml, payload.agent_simulation) karşı test ederken kod incelemesi sırasında birkaç kritik entegrasyon hatası (yanlış veri yolu okuma, Tailwind'in hiç derlenmemesi, typo'lu responsive class'lar) erken yakalanıp düzeltildi. Persona kartlarının ayrı bir component'e (AgentCards.jsx) çıkarılması kod tekrarını azalttı ve gelecekte yeniden kullanımı kolaylaştırdı. Gerçek bir tarama verisiyle uçtan uca test yapılabilmesi, entegrasyonun fiilen çalıştığının erken doğrulanmasını sağladı.
+### 🔍 Sprint Review
+Frontend/Admin Dashboard bacağında Sprint 2 hedeflerine ulaşılmıştır: Eklentinin ürettiği `capture_id` akışı artık admin konsolda görselleştirilebilmektedir. 
 
-Ne Geliştirilebilir?: Sprint 2 süresince takım içi iletişim ciddi şekilde aksadı — backend, ML ve Chrome Extension bacaklarındaki ilerleme bu raporun hazırlandığı tarihte teyit edilemedi ve son commit'in (Sprint 1'e ait) üzerinden yaklaşık iki hafta geçmiş olduğu görüldü. Sprint 3'e girmeden önce tüm takımın senkronize olması, güncel durumun Asana board üzerinden netleştirilmesi ve Daily Scrum'ların düzenli şekilde yapılmasının sağlanması gerekmektedir. CatBoost model dosyaları (backend/models/*.cbm) hâlâ repo'ya eklenmemiş durumda; bu, Sprint 3'te ML Tahmin Motoru kartının gerçek tahminleri gösterebilmesi için öncelikli olarak çözülmesi gereken bir bağımlılık.
+Backend, ML ve Chrome Extension bacaklarında Sprint 2 kapsamında ne kadar ilerleme kaydedildiği, ilgili takım üyelerine bu rapor yazılana kadar ulaşılamadığı için bu Sprint Review'a yansıtılamamıştır. Takım üyelerinden bilgi alındığında bu bölüm güncellenecektir.
+
+---
+
+### ↩️ Sprint Retrospective
+
+#### Ne İyi Gitti?
+*   Dashboard'u backend'in gerçek yanıt şemasına (`summary`, `ml`, `payload.agent_simulation`) karşı test ederken kod incelemesi sırasında birkaç kritik entegrasyon hatası (yanlış veri yolu okuma, Tailwind'in hiç derlenmemesi, typo'lu responsive class'lar) erken yakalanıp düzeltildi.
+*   Persona kartlarının ayrı bir component'e (`AgentCards.jsx`) çıkarılması kod tekrarını azalttı ve gelecekte yeniden kullanımı kolaylaştırdı.
+*   Gerçek bir tarama verisiyle uçtan uca test yapılabilmesi, entegrasyonun fiilen çalıştığının erken doğrulanmasını sağladı.
+
+#### Ne Geliştirilebilir?
+*   Sprint 2 süresince takım içi iletişim ciddi şekilde aksadı — backend, ML ve Chrome Extension bacaklarındaki ilerleme bu raporun hazırlandığı tarihte teyit edilemedi ve son commit'in (Sprint 1'e ait) üzerinden yaklaşık iki hafta geçmiş olduğu görüldü. Sprint 3'e girmeden önce tüm takımın senkronize olması, güncel durumun Asana board üzerinden netleştirilmesi ve Daily Scrum'ların düzenli şekilde yapılmasının sağlanması gerekmektedir.
+*   CatBoost model dosyaları (`backend/models/*.cbm`) hâlâ repo'ya eklenmemiş durumda; bu, Sprint 3'te ML Tahmin Motoru kartının gerçek tahminleri gösterebilmesi için öncelikli olarak çözülmesi gereken bir bağımlılıktır.
 
 ---
 
