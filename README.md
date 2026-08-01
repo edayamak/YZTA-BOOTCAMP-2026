@@ -289,11 +289,74 @@ Sprint sonunda Admin Dashboard'un ilk çalışan sürümü başarıyla tamamlanm
 
 # Sprint 3
 
-* **Backlog düzeni ve Story seçimleri**: 
-* **Daily Scrum**: 
-* **Sprint board update**: Sprint board screenshotları:
-* **Ürün Durumu**: Ekran görüntüleri:
-* **Sprint Review**: 
-* **Sprint Retrospective:**
+## Backlog Düzeni ve Story Seçimleri
 
+Sprint 2 sonunda planlandığı üzere, Sprint 3 kapsamının hedefi Admin Dashboard'un yol haritasında placeholder olarak duran üç modülü (Canlı Akış, Raporlar & Loglar, Ayarlar) gerçek işlevsellikle doldurmaktı. Sprint 3 süresince de takım içi iletişim kopukluğu devam etmiş; Backend, ML ve Chrome Extension bacaklarında bu sprint kapsamında hangi Story'lerin seçildiği ve tamamlandığı yine ilgili takım üyelerinden teyit alınamamıştır. Bu nedenle Frontend geliştiricisi, gerekli olan sınırlı backend değişikliklerini (WebSocket desteği) de kendisi üstlenerek tamamlamıştır.
+
+Fiilen tamamlanan iş aşağıdaki gibidir:
+
+| Story | Açıklama | Durum |
+| :--- | :--- | :--- |
+| **Live Feed - Real-time Backend Support** | Backend'e WebSocket endpoint'i (`/api/ws/captures`) ve broadcast mekanizması (`ws_manager.py`) eklenmesi; her yeni `/api/analyze` isteğinde bağlı istemcilere anlık yayın yapılması. | **Tamamlandı** |
+| **Live Feed - Frontend Integration** | Dashboard'un Canlı Akış sekmesinin gerçek WebSocket bağlantısına geçirilmesi; bağlantı durumu göstergesi, otomatik yeniden bağlanma, mükerrer kayıt engelleme. | **Tamamlandı** |
+| **Reports & Logs Module** | Backend'in mevcut `GET /api/captures` ve `GET /api/capture/{id}` endpoint'lerini kullanarak geçmiş taramaların listelenmesi, tek taramaya geçiş ve JSON olarak indirme. | **Tamamlandı** |
+| **Settings Panel (Scoped)** | Backend'de gerçek bir tüketicisi olmayan API anahtarı/webhook gibi sahte entegrasyonlar yerine, yalnızca gerçekten işlevsel olan ayarların (Backend adresi, Canlı Akış yenileme aralığı, tarayıcı yerel deposunda kalıcı) sunulması yönünde bilinçli bir kapsam kararı alınmıştır. | **Tamamlandı (kapsam dahilinde)** |
+| **Model Dosyası Konumu Düzeltmesi** | CatBoost model dosyalarının (`anomaly_model.cbm`, `churn_model.cbm`) yanlışlıkla repo kök dizinine yüklenmiş olması tespit edilip `backend/models/` klasörüne taşınmıştır; ML Tahmin Motoru artık gerçek tahminler üretmektedir. | **Tamamlandı** |
+
+### Sprint süresince desteklenen teknik görevler:
+
+* `backend/app/services/ws_manager.py`: Aktif WebSocket bağlantılarını tutan ve yeni capture geldiğinde broadcast eden ConnectionManager
+* `backend/app/routers/analyze.py`: `POST /api/analyze` içine broadcast çağrısı ve yeni `/api/ws/captures` WebSocket route'unun eklenmesi
+* `LiveFeed.jsx`: WebSocket bağlantısı, bağlantı durumu göstergesi, otomatik yeniden bağlanma, mükerrer capture kaydı engelleme (dedup), StrictMode kaynaklı çift bağlantı sorununun giderilmesi
+* `ReportsLogs.jsx`: Geçmiş taramaların tablo halinde listelenmesi, backend'in gerçek `/api/captures` yanıt şemasına (`capture_ids` alanı) uyarlanması, JSON indirme
+* `SettingsPanel.jsx`: Yerel (`localStorage`) ayarlar paneli
+* `DashboardLayout.jsx`: Yol haritası placeholder'larının kaldırılıp üç gerçek modülün bağlanması, capture açma (`openCapture`) fonksiyonunun eklenmesi
+* Uzun UTM parametreli URL'lerin (ör. Google Ads reklamlarından gelen linkler) Canlı Akış ve üst bar Target göstergesinde sayfayı yatay taşırma hatasının giderilmesi (`truncate`/`min-w-0` düzeltmesi)
+
+---
+
+## Daily Scrum
+
+Sprint 3 süresince de takım üyelerine ulaşılamamıştır; planlanan Daily Scrum toplantıları gerçekleştirilememiştir.
+
+---
+
+## Sprint Board Update
+
+Frontend/Backend entegrasyon Story'leri *Backlog → To Do → In Progress → Done* akışı doğrultusunda Sprint Board üzerinde güncellenmiş ve Sprint sonunda Done sütununa taşınmıştır. Diğer bacaklara ait board güncellemeleri bu raporun yazıldığı tarihte doğrulanamamıştır.
+
+### Sprint Board Ekran Görüntüleri:
+*Eklenecek*
+
+---
+
+## 🚀 Ürün Durumu
+
+### Ekran Görüntüleri:
+*Eklenecek*
+
+Sprint sonunda Admin Dashboard'un tüm menü sekmeleri gerçek işlevsellikle çalışır durumdadır:
+
+* **Canlı Akış:** Backend'de yeni bir tarama işlendiği anda (`POST /api/analyze`), WebSocket üzerinden dashboard'a anlık olarak düşmektedir; sayfa yenileme veya bekleme gerekmemektedir.
+* **Raporlar & Loglar:** Sunucu ayaktayken yapılmış tüm taramalar risk skoru, risk durumu ve tarihe göre listelenmekte; herhangi bir kayıt tek tıkla Dashboard'da açılabilmekte veya JSON olarak indirilebilmektedir.
+* **Ayarlar:** Backend adresi ve Canlı Akış yenileme aralığı gibi gerçekten işlevsel ayarlar tarayıcı yerelinde saklanmaktadır; bilinçli olarak backend desteği gerektiren (API anahtarı, webhook) sahte alanlar eklenmemiştir.
+* **ML Tahmin Motoru:** Model dosyalarının doğru klasöre taşınmasıyla artık gerçek CatBoost tahminleri (`anomaly_score`, `risk_level`, `churn_risk`) üretilmekte, `models_loaded: TRUE` dönmektedir.
+
+---
+
+## 🔍 Sprint Review
+
+Frontend/Admin Dashboard bacağında Sprint 3 hedeflerine ulaşılmıştır: Sprint 1 ve 2'de placeholder olarak bırakılan üç modül (Canlı Akış, Raporlar & Loglar, Ayarlar) gerçek backend verisiyle çalışır hale getirilmiş, ayrıca ML Tahmin Motoru'nun model dosyası eksikliğinden kaynaklanan devre dışı kalma durumu giderilmiştir. Backend, ML ve Chrome Extension bacaklarında bu sprint kapsamında takım üyeleri tarafından ne kadar ilerleme kaydedildiği bu rapora yansıtılamamıştır.
+
+---
+
+## ↩️ Sprint Retrospective
+
+### Ne İyi Gitti?
+* Backend'e WebSocket desteği eklenmesi ve frontend'in buna gerçek zamanlı bağlanması uçtan uca test edilerek doğrulandı; ek olarak model dosyalarının yanlış klasörde olduğu tespit edilip düzeltildi, bu da ML Tahmin Motoru'nu tamamen devreye soktu. 
+* Geliştirme sürecinde ortaya çıkan gerçek hatalar (WebSocket'in React StrictMode nedeniyle mükerrer kayıt üretmesi, uzun UTM parametreli URL'lerin sayfa düzenini bozması, backend yanıt şemasının varsayılandan farklı olması) canlı test sırasında yakalanıp anında düzeltildi.
+
+### Ne Geliştirilebilir?
+* Takım içi iletişim kopukluğu Sprint 3'ün sonuna kadar sürdü; Backend, ML ve Chrome Extension bacaklarındaki ilerleme hâlâ teyit edilemedi. 
+* Bu durum, normalde backend geliştiricisine ait olması gereken işlerin (WebSocket altyapısı, model dosyası konumlandırması) Frontend geliştiricisi tarafından üstlenilmesini gerektirdi. Sprint 4/proje teslimi öncesinde tüm takımın senkronize olması ve iş bölümünün netleştirilmesi kritik önemdedir.
 ---
