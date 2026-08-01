@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { LayoutDashboard, Radio, FileText, Settings, Terminal, Activity, RefreshCw, AlertTriangle, Calendar } from 'lucide-react';
+import { LayoutDashboard, Radio, FileText, Settings, Terminal, Activity, RefreshCw, AlertTriangle } from 'lucide-react';
 import AgentCards from '../components/AgentCards';
+import ReportsLogs from '../components/ReportsLogs';
+import LiveFeed from '../components/LiveFeed';
+import SettingsPanel from '../components/SettingsPanel';
 
 // TODO: production'da .env / import.meta.env.VITE_API_BASE_URL üzerinden yönet
 const API_BASE = 'http://127.0.0.1:8000';
@@ -16,6 +19,14 @@ export default function DashboardLayout() {
     return params.get('capture_id');
   };
 
+  const fetchCaptureById = async (captureId) => {
+    const detailRes = await fetch(`${API_BASE}/api/capture/${captureId}`);
+    if (!detailRes.ok) {
+      throw new Error(`Capture bulunamadı (HTTP ${detailRes.status})`);
+    }
+    return detailRes.json();
+  };
+
   const fetchCaptures = async () => {
     setLoading(true);
     setError(null);
@@ -23,11 +34,7 @@ export default function DashboardLayout() {
       const captureId = getCaptureIdFromUrl();
 
       if (captureId) {
-        const detailRes = await fetch(`${API_BASE}/api/capture/${captureId}`);
-        if (!detailRes.ok) {
-          throw new Error(`Capture bulunamadı (HTTP ${detailRes.status})`);
-        }
-        const data = await detailRes.json();
+        const data = await fetchCaptureById(captureId);
         setSelectedCapture(data);
         return;
       }
@@ -36,20 +43,35 @@ export default function DashboardLayout() {
       if (!res.ok) {
         throw new Error(`Capture listesi alınamadı (HTTP ${res.status})`);
       }
-      const ids = await res.json();
+      const idsData = await res.json();
+      const ids = idsData?.capture_ids || [];
 
       if (ids && ids.length > 0) {
         const latestId = ids[ids.length - 1];
-        const detailRes = await fetch(`${API_BASE}/api/capture/${latestId}`);
-        if (!detailRes.ok) {
-          throw new Error(`Capture detayı alınamadı (HTTP ${detailRes.status})`);
-        }
-        const data = await detailRes.json();
+        const data = await fetchCaptureById(latestId);
         setSelectedCapture(data);
       }
     } catch (err) {
       console.error("Backend bağlantı hatası.", err);
       setError(err.message || 'Backend’e bağlanılamadı. Servisin çalıştığından emin ol.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const openCapture = async (captureId) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('capture_id', captureId);
+      window.history.pushState({}, '', url);
+      const data = await fetchCaptureById(captureId);
+      setSelectedCapture(data);
+      setActiveTab('dashboard');
+    } catch (err) {
+      console.error("Capture açılırken hata.", err);
+      setError(err.message || 'Tarama açılamadı.');
     } finally {
       setLoading(false);
     }
@@ -74,50 +96,6 @@ export default function DashboardLayout() {
     { id: 'settings', name: 'Ayarlar', icon: Settings },
   ];
 
-  // Sprint 3 Yol Haritası Metinleri
-  const renderRoadmapContent = () => {
-    switch (activeTab) {
-      case 'live':
-        return {
-          title: "Canlı Akış (Live Feed) Modülü",
-          description: "Bu modül Sprint 3 planlamasında aktif edilecektir.",
-          details: [
-            "Sistem loglarının WebSocket protokolü üzerinden gerçek zamanlı akışı sağlanacaktır.",
-            "Anlık AI Ajan analizleri ve mikro-davranış takipleri arayüze entegre edilecektir.",
-            "Kritik risk durumlarında canlı masaüstü ve tarayıcı bildirim altyapısı kurulacaktır."
-          ]
-        };
-      case 'reports':
-        return {
-          title: "Raporlar & Loglar Modülü",
-          description: "Bu modül Sprint 3 planlamasında aktif edilecektir.",
-          details: [
-            "Geçmişe dönük tüm simülasyon ve tarama kayıtları veri tabanında arşivlenecektir.",
-            "Tek tıkla indirilebilir PDF Rapor Üretici mekanizması devreye alınacaktır.",
-            "Ajan türüne, tarihe ve risk skoruna göre gelişmiş filtreleme bileşenleri eklenecektir."
-          ]
-        };
-      case 'settings':
-        return {
-          title: "Sistem Ayarları Modülü",
-          description: "Bu modül Sprint 3 planlamasında aktif edilecektir.",
-          details: [
-            "API Anahtarı (Credentials) ve hedef domain entegrasyon yönetimi eklenecektir.",
-            "Webhook entegrasyonları ile CI/CD süreçlerine tetikleyici desteği verilecektir.",
-            "LLM ve CatBoost model hassasiyet eşikleri (Threshold) panel üzerinden ayarlanabilir olacaktır."
-          ]
-        };
-      default:
-        return null;
-    }
-  };
-
-  const roadmap = renderRoadmapContent();
-
-  // NOT: GET /api/capture/{id} yanıtında extension payload'ı (page, cart, dom, css,
-  // agent_simulation, ml_features...) `selectedCapture.payload` altında gelir.
-  // `selectedCapture.summary` ve `selectedCapture.ml` backend tarafından ayrıca
-  // türetilmiş özet alanlardır. Bkz. backend/app/services/capture_service.py
   const personas = selectedCapture?.payload?.agent_simulation?.personas || [];
 
   return (
@@ -164,9 +142,9 @@ export default function DashboardLayout() {
               <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
             </button>
           </div>
-          <div className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span className="text-xs font-semibold text-slate-600 font-mono">
+          <div className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 max-w-md min-w-0">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0"></span>
+            <span className="text-xs font-semibold text-slate-600 font-mono truncate">
               Target: {selectedCapture?.summary?.url || selectedCapture?.payload?.page?.url || 'Tarama Bekleniyor...'}
             </span>
           </div>
@@ -180,7 +158,11 @@ export default function DashboardLayout() {
         )}
 
         <div className="p-8 max-w-7xl w-full mx-auto space-y-6">
-          {activeTab === 'dashboard' ? (
+          {activeTab === 'live' ? (
+            <LiveFeed />
+          ) : activeTab === 'reports' ? (
+            <ReportsLogs onOpenCapture={openCapture} />
+          ) : activeTab === 'dashboard' ? (
             <>
               {/* Üst Özet Skorkartları */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -234,32 +216,9 @@ export default function DashboardLayout() {
                 <AgentCards personas={personas} />
               </div>
             </>
-          ) : (
-            /* Profesyonel Sprint 3 Yol Haritası Tasarımı */
-            <div className="bg-white rounded-xl border border-slate-200 p-8 shadow-sm max-w-2xl mx-auto">
-              <div className="flex items-center gap-3 border-b pb-4 mb-6">
-                <div className="bg-indigo-50 p-2.5 rounded-lg text-indigo-600">
-                  <Calendar size={24} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-slate-800">{roadmap?.title}</h2>
-                  <p className="text-sm text-amber-600 font-medium mt-0.5">{roadmap?.description}</p>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Sprint 3 Geliştirme Hedefleri</h3>
-                <ul className="space-y-3">
-                  {(roadmap?.details || []).map((detail, index) => (
-                    <li key={index} className="flex items-start gap-2.5 text-sm text-slate-600 leading-relaxed">
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></span>
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
+          ) : activeTab === 'settings' ? (
+            <SettingsPanel />
+          ) : null}
         </div>
       </main>
     </div>
