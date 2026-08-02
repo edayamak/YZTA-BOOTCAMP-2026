@@ -94,7 +94,7 @@ E-ticaret sayfasını aç → eklenti → **Siteyi Tara** → özet popup'ta gö
 
 ## Product Backlog URL
 
-[Backlog Board Linki](https://app.asana.com/1/1216279486743436/project/1216277599548850/board/1216278202254806)
+[Backlog Board Linki](https://app.asana.com/1/1217092545972754/project/1217092538420869/board/1217092538421126)
 
 ---
 
@@ -253,11 +253,19 @@ Sprint sonunda AgenticQA platformunun Frontend, Backend, Chrome Extension ve AI 
  <p align="center">
   <img src="images/Sprint2.3.png" alt="Sprint 2 Sonu" width="900">
 </p>
-*   **Ürün Durumu Ekran Görüntüleri:** *[Eklenecek]*
 
----
+* **Ürün Durumu**: Ekran görüntüleri:  
+<p align="center">
+  <img src="images/ProductImages/Product_picture1.png" alt="Ürün Ekran Resmi 1" width="900">
+</p>
+<p align="center">
+  <img src="images/ProductImages/Product_picture2.png" alt="Ürün Ekran Resmi 2" width="900">
+</p>
+<p align="center">
+  <img src="images/ProductImages/Product_picture3.png" alt="Ürün Ekran Resmi 3" width="900">
+</p>
 
-### 🚀 Ürün Durumu (Sprint Sonu)
+### Ürün Durumu (Sprint Sonu)
 Sprint sonunda Admin Dashboard'un ilk çalışan sürümü başarıyla tamamlanmıştır:
 
 *   **Canlı Veri Bağlantısı:** Dashboard, URL üzerinden gelen `capture_id` ile (`/dashboard?capture_id=cap_xxx`) veya en son yapılan taramayı otomatik çekerek backend'den canlı veri okuyabilmektedir.
@@ -267,14 +275,13 @@ Sprint sonunda Admin Dashboard'un ilk çalışan sürümü başarıyla tamamlanm
 *   **Gelecek Planlaması:** "Canlı Akış", "Raporlar & Loglar" ve "Ayarlar" sekmeleri Sprint 3 yol haritası olarak placeholder içerikle gösterilmektedir.
 *   **Uçtan Uca Test:** Gerçek bir mağaza taraması (trendyol.com) ile uçtan uca test edilmiş; *eklenti → backend → dashboard* akışının kararlı çalıştığı doğrulanmıştır.
 
----
 
-### 🔍 Sprint Review
+### Sprint Review
 
 * Sprint sonunda React tabanlı kullanıcı arayüzü, Backend servisleri ve Chrome Extension başarılı şekilde entegre edilmiştir. PostgreSQL veri tabanı tasarımı hazırlanmış, CrewAI tabanlı AI Agent mimarisi Backend ile haberleşebilir hale getirilmiştir. Gerçekleştirilen demo sırasında Extension tarafından oluşturulan analizlerin Backend üzerinden işlendiği ve Dashboard üzerinde görüntülenebildiği doğrulanmıştır. Paydaşlar tarafından sistemin temel entegrasyonunun başarılı olduğu değerlendirilmiş ve bir sonraki Sprint kapsamında Deployment, Authentication ve sistem izleme (Monitoring) çalışmalarına devam edilmesi kararlaştırılmıştır.
 ---
 
-### ↩️ Sprint Retrospective
+### Sprint Retrospective
 
 #### Ne İyi Gitti?
 *   Dashboard'u backend'in gerçek yanıt şemasına (`summary`, `ml`, `payload.agent_simulation`) karşı test ederken kod incelemesi sırasında birkaç kritik entegrasyon hatası (yanlış veri yolu okuma, Tailwind'in hiç derlenmemesi, typo'lu responsive class'lar) erken yakalanıp düzeltildi.
@@ -290,18 +297,18 @@ Sprint sonunda Admin Dashboard'un ilk çalışan sürümü başarıyla tamamlanm
 # Sprint 3
 
 ## Backlog Düzeni ve Story Seçimleri
-
-Sprint 2 sonunda planlandığı üzere, Sprint 3 kapsamının hedefi Admin Dashboard'un yol haritasında placeholder olarak duran üç modülü (Canlı Akış, Raporlar & Loglar, Ayarlar) gerçek işlevsellikle doldurmaktı. Sprint 3 süresince de takım içi iletişim kopukluğu devam etmiş; Backend, ML ve Chrome Extension bacaklarında bu sprint kapsamında hangi Story'lerin seçildiği ve tamamlandığı yine ilgili takım üyelerinden teyit alınamamıştır. Bu nedenle Frontend geliştiricisi, gerekli olan sınırlı backend değişikliklerini (WebSocket desteği) de kendisi üstlenerek tamamlamıştır.
+Sprint 3 kapsamında AgenticQA platformunun yönetim panelinin (Admin Dashboard) işlevsel hale getirilmesi ve Sprint 2 sonunda placeholder olarak bırakılan modüllerin gerçek backend servisleriyle entegre edilmesi hedeflenmiştir. Sprint planlama toplantısında Product Backlog yeniden önceliklendirilmiş, öncelik gerçek zamanlı veri akışı, raporlama altyapısı, ayarlar modülü ve sistem entegrasyonunun tamamlanmasına verilmiştir. Story tahminlemelerinde Fibonacci Story Point yöntemi (3, 5, 8, 13) kullanılmış, Story'ler daha küçük Task ve Subtask'lara ayrılarak Asana Sprint Board üzerinde takip edilmiştir.
 
 Fiilen tamamlanan iş aşağıdaki gibidir:
 
-| Story | Açıklama | Durum |
-| :--- | :--- | :--- |
-| **Live Feed - Real-time Backend Support** | Backend'e WebSocket endpoint'i (`/api/ws/captures`) ve broadcast mekanizması (`ws_manager.py`) eklenmesi; her yeni `/api/analyze` isteğinde bağlı istemcilere anlık yayın yapılması. | **Tamamlandı** |
-| **Live Feed - Frontend Integration** | Dashboard'un Canlı Akış sekmesinin gerçek WebSocket bağlantısına geçirilmesi; bağlantı durumu göstergesi, otomatik yeniden bağlanma, mükerrer kayıt engelleme. | **Tamamlandı** |
-| **Reports & Logs Module** | Backend'in mevcut `GET /api/captures` ve `GET /api/capture/{id}` endpoint'lerini kullanarak geçmiş taramaların listelenmesi, tek taramaya geçiş ve JSON olarak indirme. | **Tamamlandı** |
-| **Settings Panel (Scoped)** | Backend'de gerçek bir tüketicisi olmayan API anahtarı/webhook gibi sahte entegrasyonlar yerine, yalnızca gerçekten işlevsel olan ayarların (Backend adresi, Canlı Akış yenileme aralığı, tarayıcı yerel deposunda kalıcı) sunulması yönünde bilinçli bir kapsam kararı alınmıştır. | **Tamamlandı (kapsam dahilinde)** |
-| **Model Dosyası Konumu Düzeltmesi** | CatBoost model dosyalarının (`anomaly_model.cbm`, `churn_model.cbm`) yanlışlıkla repo kök dizinine yüklenmiş olması tespit edilip `backend/models/` klasörüne taşınmıştır; ML Tahmin Motoru artık gerçek tahminler üretmektedir. | **Tamamlandı** |
+| Story | Açıklama | Story Point |
+|--------|----------|------------:|
+| Live Feed – Real-time Backend Support | FastAPI backend'ine WebSocket desteği eklenerek yeni analizlerin gerçek zamanlı olarak yayınlanması. | 8 |
+| Live Feed – Frontend Integration | Dashboard'un WebSocket üzerinden canlı veri alabilecek şekilde geliştirilmesi. | 8 |
+| Reports & Logs Module | Geçmiş analiz kayıtlarının görüntülenmesi, detaylarının incelenmesi ve JSON formatında indirilebilmesi. | 5 |
+| Settings Panel | Dashboard üzerinde backend adresi ve canlı akış ayarlarının yönetilebilmesi, kullanıcı tercihlerinin tarayıcı yerel deposunda saklanması. | 3 |
+| Dashboard Navigation Improvements | Placeholder modüllerin gerçek bileşenlerle değiştirilmesi, Dashboard gezinme yapısının tamamlanması ve modüller arası geçişlerin iyileştirilmesi. | 5 |
+| ML Model Deployment Fixes | CatBoost model dosyalarının doğru konuma taşınması, model yükleme süreçlerinin düzeltilmesi ve tahmin servislerinin aktif hale getirilmesi. | 3 |
 
 ### Sprint süresince desteklenen teknik görevler:
 
@@ -326,14 +333,33 @@ Sprint 3 süresince de takım üyelerine ulaşılamamıştır; planlanan Daily S
 Frontend/Backend entegrasyon Story'leri *Backlog → To Do → In Progress → Done* akışı doğrultusunda Sprint Board üzerinde güncellenmiş ve Sprint sonunda Done sütununa taşınmıştır. Diğer bacaklara ait board güncellemeleri bu raporun yazıldığı tarihte doğrulanamamıştır.
 
 ### Sprint Board Ekran Görüntüleri:
-*Eklenecek*
+<p align="center">
+  <img src="images/Sprint3.1.png" alt="Sprint 3 Başlangıcı" width="900">
+</p>
+ <p align="center">
+  <img src="images/Sprint3.2.png" alt="Sprint 3 Ortası" width="900">
+</p>
+ <p align="center">
+  <img src="images/Sprint3.3.png" alt="Sprint 3 Sonu" width="900">
+</p>
 
 ---
 
-## 🚀 Ürün Durumu
+## Ürün Durumu
 
 ### Ekran Görüntüleri:
-*Eklenecek*
+<p align="center">
+  <img src="images/ProductImages/Product_picture4.png" alt="Ürün Ekran Resmi 4" width="900">
+</p>
+<p align="center">
+  <img src="images/ProductImages/Product_picture5.png" alt="Ürün Ekran Resmi 5" width="900">
+</p>
+<p align="center">
+  <img src="images/ProductImages/Product_picture6.png" alt="Ürün Ekran Resmi 6" width="900">
+</p>
+<p align="center">
+  <img src="images/ProductImages/Product_picture7.png" alt="Ürün Ekran Resmi 7" width="900">
+</p>
 
 Sprint sonunda Admin Dashboard'un tüm menü sekmeleri gerçek işlevsellikle çalışır durumdadır:
 
@@ -344,13 +370,13 @@ Sprint sonunda Admin Dashboard'un tüm menü sekmeleri gerçek işlevsellikle ç
 
 ---
 
-## 🔍 Sprint Review
+## Sprint Review
 
 Frontend/Admin Dashboard bacağında Sprint 3 hedeflerine ulaşılmıştır: Sprint 1 ve 2'de placeholder olarak bırakılan üç modül (Canlı Akış, Raporlar & Loglar, Ayarlar) gerçek backend verisiyle çalışır hale getirilmiş, ayrıca ML Tahmin Motoru'nun model dosyası eksikliğinden kaynaklanan devre dışı kalma durumu giderilmiştir. Backend, ML ve Chrome Extension bacaklarında bu sprint kapsamında takım üyeleri tarafından ne kadar ilerleme kaydedildiği bu rapora yansıtılamamıştır.
 
 ---
 
-## ↩️ Sprint Retrospective
+## Sprint Retrospective
 
 ### Ne İyi Gitti?
 * Backend'e WebSocket desteği eklenmesi ve frontend'in buna gerçek zamanlı bağlanması uçtan uca test edilerek doğrulandı; ek olarak model dosyalarının yanlış klasörde olduğu tespit edilip düzeltildi, bu da ML Tahmin Motoru'nu tamamen devreye soktu. 
